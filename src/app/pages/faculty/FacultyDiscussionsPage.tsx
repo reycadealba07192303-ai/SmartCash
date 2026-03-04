@@ -23,7 +23,7 @@ const FacultyDiscussionsPage: React.FC = () => {
         setLoading(true);
         setError(null);
         try {
-            const res = await fetch('http://localhost:5000/api/faculty/discussions', {
+            const res = await fetch('https://smartcash-eudv.onrender.com/api/faculty/discussions', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!res.ok) throw new Error('Failed to fetch discussions');
@@ -42,7 +42,7 @@ const FacultyDiscussionsPage: React.FC = () => {
 
     const handleToggleFlag = async (id: string, currentFlagStatus: boolean) => {
         try {
-            const res = await fetch(`http://localhost:5000/api/faculty/discussions/${id}/flag`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/discussions/${id}/flag`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ isFlagged: !currentFlagStatus })
@@ -57,7 +57,7 @@ const FacultyDiscussionsPage: React.FC = () => {
     const handleDelete = async (id: string) => {
         if (!confirm('Are you sure you want to permanently delete this post?')) return;
         try {
-            const res = await fetch(`http://localhost:5000/api/faculty/discussions/${id}`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/discussions/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

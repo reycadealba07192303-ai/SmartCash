@@ -27,7 +27,7 @@ const AdminUsersPage: React.FC = () => {
 
     const fetchUsers = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/admin/users', {
+            const res = await fetch('https://smartcash-eudv.onrender.com/api/admin/users', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {
@@ -97,7 +97,7 @@ const AdminUsersPage: React.FC = () => {
 
     const handleAddUser = async () => {
         try {
-            const res = await fetch('http://localhost:5000/api/admin/users', {
+            const res = await fetch('https://smartcash-eudv.onrender.com/api/admin/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -166,7 +166,7 @@ const AdminUsersPage: React.FC = () => {
 
     const handleSaveUser = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/api/admin/users/${selectedUser.id}/status`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/admin/users/${selectedUser.id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -188,7 +188,7 @@ const AdminUsersPage: React.FC = () => {
 
     const confirmDeleteUser = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/api/admin/users/${selectedUser.id}`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/admin/users/${selectedUser.id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -206,7 +206,7 @@ const AdminUsersPage: React.FC = () => {
 
     const confirmApproveUser = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/api/admin/users/${selectedUser.id}/status`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/admin/users/${selectedUser.id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -226,7 +226,7 @@ const AdminUsersPage: React.FC = () => {
 
     const confirmSuspendUser = async () => {
         try {
-            const res = await fetch(`http://localhost:5000/api/admin/users/${selectedUser.id}/status`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/admin/users/${selectedUser.id}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',

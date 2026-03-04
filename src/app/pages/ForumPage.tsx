@@ -15,7 +15,7 @@ const ForumPage: React.FC = () => {
         const fetchPosts = async () => {
             if (!token) return;
             try {
-                const res = await fetch('http://localhost:5000/api/student/forum/posts', {
+                const res = await fetch('https://smartcash-eudv.onrender.com/api/student/forum/posts', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -28,7 +28,7 @@ const ForumPage: React.FC = () => {
         };
         fetchPosts();
 
-        const socket = io('http://localhost:5000');
+        const socket = io('https://smartcash-eudv.onrender.com');
 
         socket.on('new_forum_post', (newPost: any) => {
             setPosts(prevPosts => [newPost, ...prevPosts]);
@@ -72,7 +72,7 @@ const ForumPage: React.FC = () => {
 
         if (token) {
             try {
-                await fetch('http://localhost:5000/api/student/forum/post', {
+                await fetch('https://smartcash-eudv.onrender.com/api/student/forum/post', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -90,7 +90,7 @@ const ForumPage: React.FC = () => {
     const handleLike = async (postId: string) => {
         if (!token) return;
         try {
-            const res = await fetch(`http://localhost:5000/api/student/forum/posts/${postId}/like`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/forum/posts/${postId}/like`, {
                 method: 'PUT',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -115,7 +115,7 @@ const ForumPage: React.FC = () => {
 
         if (!comments[postId] && token) {
             try {
-                const res = await fetch(`http://localhost:5000/api/student/forum/posts/${postId}/comments`, {
+                const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/forum/posts/${postId}/comments`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -133,7 +133,7 @@ const ForumPage: React.FC = () => {
         if (!commentContent.trim() || !token) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/student/forum/posts/${postId}/comments`, {
+            const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/forum/posts/${postId}/comments`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

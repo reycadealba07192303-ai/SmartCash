@@ -292,8 +292,8 @@ const TemplatesPage: React.FC<TemplatesPageProps> = ({ role = 'student' }) => {
             if (template.connected && role === 'student' && token) {
                 // Fetch real budget data
                 const [transRes, savingsRes] = await Promise.all([
-                    fetch('http://localhost:5000/api/budget/transactions', { headers: { 'Authorization': `Bearer ${token}` } }),
-                    fetch('http://localhost:5000/api/budget/savings', { headers: { 'Authorization': `Bearer ${token}` } }),
+                    fetch('https://smartcash-eudv.onrender.com/api/budget/transactions', { headers: { 'Authorization': `Bearer ${token}` } }),
+                    fetch('https://smartcash-eudv.onrender.com/api/budget/savings', { headers: { 'Authorization': `Bearer ${token}` } }),
                 ]);
 
                 const transactions = transRes.ok ? await transRes.json() : [];
@@ -314,7 +314,7 @@ const TemplatesPage: React.FC<TemplatesPageProps> = ({ role = 'student' }) => {
 
             // Log download server-side
             if (role === 'student' && token) {
-                await fetch('http://localhost:5000/api/student/templates/download', {
+                await fetch('https://smartcash-eudv.onrender.com/api/student/templates/download', {
                     method: 'POST',
                     headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ template: template.title })

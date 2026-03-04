@@ -44,7 +44,7 @@ const StudentModulesPage: React.FC = () => {
         const load = async () => {
             try {
                 // Load modules + lessons progress
-                const modRes = await fetch('http://localhost:5000/api/student/modules', {
+                const modRes = await fetch('https://smartcash-eudv.onrender.com/api/student/modules', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!modRes.ok) throw new Error('Failed to load modules');
@@ -56,7 +56,7 @@ const StudentModulesPage: React.FC = () => {
                 // For each module, check if there's a quiz and if it's been done
                 const enriched = await Promise.all(modsData.map(async (mod) => {
                     try {
-                        const qRes = await fetch(`http://localhost:5000/api/student/quizzes/module/${mod.id}`, {
+                        const qRes = await fetch(`https://smartcash-eudv.onrender.com/api/student/quizzes/module/${mod.id}`, {
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
                         if (qRes.ok) {

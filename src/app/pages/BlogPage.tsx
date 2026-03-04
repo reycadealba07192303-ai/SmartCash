@@ -19,7 +19,7 @@ const BlogPage: React.FC<BlogPageProps> = ({ role = 'student' }) => {
             if (!token) { setLoading(false); return; }
             try {
                 setIsGenerating(true);
-                const res = await fetch('http://localhost:5000/api/ai/blog-posts', {
+                const res = await fetch('https://smartcash-eudv.onrender.com/api/ai/blog-posts', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) setBlogPosts(await res.json());

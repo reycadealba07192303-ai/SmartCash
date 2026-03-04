@@ -22,8 +22,8 @@ const StudentDashboard: React.FC = () => {
       if (!token) return;
       try {
         const [statsRes, lbRes] = await Promise.all([
-          fetch('http://localhost:5000/api/student/dashboard', { headers: { 'Authorization': `Bearer ${token}` } }),
-          fetch('http://localhost:5000/api/badges/leaderboard', { headers: { 'Authorization': `Bearer ${token}` } })
+          fetch('https://smartcash-eudv.onrender.com/api/student/dashboard', { headers: { 'Authorization': `Bearer ${token}` } }),
+          fetch('https://smartcash-eudv.onrender.com/api/badges/leaderboard', { headers: { 'Authorization': `Bearer ${token}` } })
         ]);
 
         if (statsRes.ok) {

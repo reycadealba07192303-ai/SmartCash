@@ -13,7 +13,7 @@ const BadgesPage: React.FC = () => {
     useEffect(() => {
         const fetchLeaderboard = async () => {
             try {
-                const lbRes = await fetch('http://localhost:5000/api/badges/leaderboard', {
+                const lbRes = await fetch('https://smartcash-eudv.onrender.com/api/badges/leaderboard', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (lbRes.ok) setLeaderboard(await lbRes.json());
@@ -24,7 +24,7 @@ const BadgesPage: React.FC = () => {
 
         const fetchData = async () => {
             try {
-                const badgeRes = await fetch('http://localhost:5000/api/badges', {
+                const badgeRes = await fetch('https://smartcash-eudv.onrender.com/api/badges', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (badgeRes.ok) setBadges(await badgeRes.json());
@@ -39,7 +39,7 @@ const BadgesPage: React.FC = () => {
 
         if (token) {
             fetchData();
-            const socket = io('http://localhost:5000');
+            const socket = io('https://smartcash-eudv.onrender.com');
             socket.on('leaderboard_update', () => {
                 fetchLeaderboard();
             });
