@@ -32,7 +32,7 @@ const TakeQuizButton: React.FC<{ moduleId: string; token: string; navigate: (pat
     const handleClick = async () => {
         setLoading(true);
         try {
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/quizzes/module/${moduleId}`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/student/quizzes/module/${moduleId}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!res.ok) throw new Error('No quiz found');
@@ -76,7 +76,7 @@ const LessonContent: React.FC = () => {
             setLoading(true);
             try {
                 // Fetch the single lesson details
-                const lessonRes = await fetch(`https://smartcash-eudv.onrender.com/api/student/lessons/${lessonId}`, {
+                const lessonRes = await fetch(`https://smartcash-x4j5.onrender.com/api/student/lessons/${lessonId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!lessonRes.ok) throw new Error('Lesson not found');
@@ -84,7 +84,7 @@ const LessonContent: React.FC = () => {
                 setActiveLesson(lessonData);
 
                 // Fetch module context to build the sidebar
-                const moduleRes = await fetch(`https://smartcash-eudv.onrender.com/api/student/modules`, {
+                const moduleRes = await fetch(`https://smartcash-x4j5.onrender.com/api/student/modules`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (moduleRes.ok) {
@@ -107,7 +107,7 @@ const LessonContent: React.FC = () => {
         if (!token || !activeLesson || activeLesson.completed || marking) return;
         setMarking(true);
         try {
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/lessons/${activeLesson.id}/complete`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/student/lessons/${activeLesson.id}/complete`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

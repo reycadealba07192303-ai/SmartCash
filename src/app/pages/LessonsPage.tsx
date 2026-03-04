@@ -32,7 +32,7 @@ const LessonsPage: React.FC = () => {
         const fetchModules = async () => {
             if (!token) return;
             try {
-                const response = await fetch('https://smartcash-eudv.onrender.com/api/student/modules', {
+                const response = await fetch('https://smartcash-x4j5.onrender.com/api/student/modules', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!response.ok) throw new Error('Failed to fetch modules');

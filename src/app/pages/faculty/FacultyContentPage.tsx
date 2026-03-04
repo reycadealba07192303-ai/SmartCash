@@ -65,7 +65,7 @@ const FacultyContentPage: React.FC = () => {
 
         setIsGeneratingAIQuiz(true);
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/ai/generate-quiz', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/ai/generate-quiz', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ lessonContent: `${newQuiz.title}. ${newQuiz.description}`, numQuestions: 5 })
@@ -90,7 +90,7 @@ const FacultyContentPage: React.FC = () => {
 
         setIsGeneratingAILesson(true);
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/ai/generate-lesson', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/ai/generate-lesson', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ topic: newLesson.title, description: newLesson.description })
@@ -114,8 +114,8 @@ const FacultyContentPage: React.FC = () => {
         try {
             // We use the student/modules endpoint here because it already aggregates lessons perfectly for display
             const [modRes, quizRes] = await Promise.all([
-                fetch('https://smartcash-eudv.onrender.com/api/student/modules', { headers: { 'Authorization': `Bearer ${token}` } }),
-                fetch('https://smartcash-eudv.onrender.com/api/faculty/quizzes', { headers: { 'Authorization': `Bearer ${token}` } })
+                fetch('https://smartcash-x4j5.onrender.com/api/student/modules', { headers: { 'Authorization': `Bearer ${token}` } }),
+                fetch('https://smartcash-x4j5.onrender.com/api/faculty/quizzes', { headers: { 'Authorization': `Bearer ${token}` } })
             ]);
 
             if (!modRes.ok || !quizRes.ok) throw new Error('Failed to fetch content');
@@ -141,7 +141,7 @@ const FacultyContentPage: React.FC = () => {
         setIsSubmitting(true);
         try {
             // Step 1: Create the module
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/faculty/modules', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/faculty/modules', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(newModule)
@@ -153,7 +153,7 @@ const FacultyContentPage: React.FC = () => {
             // Step 2: Auto-generate AI lessons for the module
             setIsGeneratingLessons(true);
             try {
-                await fetch('https://smartcash-eudv.onrender.com/api/ai/generate-module-lessons', {
+                await fetch('https://smartcash-x4j5.onrender.com/api/ai/generate-module-lessons', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                     body: JSON.stringify({
@@ -183,7 +183,7 @@ const FacultyContentPage: React.FC = () => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/faculty/lessons', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/faculty/lessons', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ ...newLesson, moduleId: activeModuleForLesson })
@@ -204,7 +204,7 @@ const FacultyContentPage: React.FC = () => {
         e.preventDefault();
         setIsSubmitting(true);
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/faculty/quizzes', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/faculty/quizzes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify(newQuiz)
@@ -223,7 +223,7 @@ const FacultyContentPage: React.FC = () => {
     const handleDeleteModule = async (id: string) => {
         if (!confirm('Are you sure you want to delete this module and ALL its lessons/quizzes?')) return;
         try {
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/modules/${id}`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/faculty/modules/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -238,7 +238,7 @@ const FacultyContentPage: React.FC = () => {
     const handleDeleteLesson = async (id: string) => {
         if (!confirm('Are you sure you want to delete this lesson?')) return;
         try {
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/lessons/${id}`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/faculty/lessons/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -252,7 +252,7 @@ const FacultyContentPage: React.FC = () => {
     const handleDeleteQuiz = async (id: string) => {
         if (!confirm('Are you sure you want to delete this quiz?')) return;
         try {
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/quizzes/${id}`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/faculty/quizzes/${id}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -372,7 +372,7 @@ const FacultyContentPage: React.FC = () => {
                                                                     onClick={async () => {
                                                                         setLoadingLesson(true);
                                                                         try {
-                                                                            const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/lessons/${lesson.id}`, {
+                                                                            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/student/lessons/${lesson.id}`, {
                                                                                 headers: { 'Authorization': `Bearer ${token}` }
                                                                             });
                                                                             if (res.ok) {
@@ -618,7 +618,7 @@ const FacultyContentPage: React.FC = () => {
                                             // Auto-generate quiz from lesson content
                                             setIsGeneratingAIQuiz(true);
                                             try {
-                                                const res = await fetch('https://smartcash-eudv.onrender.com/api/ai/generate-module-quiz', {
+                                                const res = await fetch('https://smartcash-x4j5.onrender.com/api/ai/generate-module-quiz', {
                                                     method: 'POST',
                                                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                                                     body: JSON.stringify({ moduleId: selectedId, moduleTitle: selectedModule.title })

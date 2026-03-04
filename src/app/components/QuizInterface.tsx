@@ -48,7 +48,7 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ quiz }) => {
 
             if (token) {
                 try {
-                    await fetch('https://smartcash-eudv.onrender.com/api/student/quizzes/complete', {
+                    await fetch('https://smartcash-x4j5.onrender.com/api/student/quizzes/complete', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                         body: JSON.stringify({ score: fs, total: quiz.questions.length })

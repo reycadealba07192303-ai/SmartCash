@@ -27,7 +27,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ role }) => {
     useEffect(() => {
         const fetchProfile = async () => {
             try {
-                const response = await fetch('https://smartcash-eudv.onrender.com/api/auth/profile', {
+                const response = await fetch('https://smartcash-x4j5.onrender.com/api/auth/profile', {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
@@ -98,7 +98,7 @@ const UserProfilePage: React.FC<UserProfilePageProps> = ({ role }) => {
         if (isDeleting) return;
         setIsDeleting(true);
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/student/account', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/student/account', {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

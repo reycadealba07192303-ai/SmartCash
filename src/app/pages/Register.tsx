@@ -32,7 +32,7 @@ const Register: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://smartcash-eudv.onrender.com/api/auth/register', {
+      const response = await fetch('https://smartcash-x4j5.onrender.com/api/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

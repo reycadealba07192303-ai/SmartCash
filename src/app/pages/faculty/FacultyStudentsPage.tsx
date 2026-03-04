@@ -69,7 +69,7 @@ const FacultyStudentsPage: React.FC = () => {
         try {
             const params = new URLSearchParams({ page: String(page), limit: String(LIMIT) });
             if (debouncedSearch) params.set('search', debouncedSearch);
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/students?${params}`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/faculty/students?${params}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (!res.ok) throw new Error('Failed to fetch students');
@@ -105,7 +105,7 @@ const FacultyStudentsPage: React.FC = () => {
         setExporting(true);
         try {
             // Fetch ALL students for export (no page limit)
-            const res = await fetch(`https://smartcash-eudv.onrender.com/api/faculty/students?page=1&limit=10000`, {
+            const res = await fetch(`https://smartcash-x4j5.onrender.com/api/faculty/students?page=1&limit=10000`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const data = await res.json();

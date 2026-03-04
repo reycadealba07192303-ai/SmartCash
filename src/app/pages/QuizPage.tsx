@@ -29,7 +29,7 @@ const QuizPage: React.FC = () => {
         const fetchQuiz = async () => {
             if (!token) return;
             try {
-                const res = await fetch(`https://smartcash-eudv.onrender.com/api/student/quizzes/${quizId}`, {
+                const res = await fetch(`https://smartcash-x4j5.onrender.com/api/student/quizzes/${quizId}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (!res.ok) throw new Error('Failed to fetch quiz');
@@ -71,7 +71,7 @@ const QuizPage: React.FC = () => {
         setIsGenerating(true);
 
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/ai/generate-quiz', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/ai/generate-quiz', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 // Backend aiService.tsx generateQuizQuestions expects 'lessonContent'. We can pass the topic.

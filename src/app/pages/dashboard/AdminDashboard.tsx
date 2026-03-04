@@ -22,7 +22,7 @@ const AdminDashboard: React.FC = () => {
     const fetchStats = async () => {
       if (!token) return;
       try {
-        const res = await fetch('https://smartcash-eudv.onrender.com/api/admin/stats', {
+        const res = await fetch('https://smartcash-x4j5.onrender.com/api/admin/stats', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) {

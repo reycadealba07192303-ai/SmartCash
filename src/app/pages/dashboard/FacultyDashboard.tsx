@@ -18,7 +18,7 @@ const FacultyDashboard: React.FC = () => {
 
     const fetchStats = async () => {
       try {
-        const res = await fetch('https://smartcash-eudv.onrender.com/api/faculty/stats', {
+        const res = await fetch('https://smartcash-x4j5.onrender.com/api/faculty/stats', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) setStats(await res.json());
@@ -29,7 +29,7 @@ const FacultyDashboard: React.FC = () => {
 
     const fetchProgress = async () => {
       try {
-        const res = await fetch('https://smartcash-eudv.onrender.com/api/faculty/student-progress', {
+        const res = await fetch('https://smartcash-x4j5.onrender.com/api/faculty/student-progress', {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (res.ok) setProgressRows(await res.json());
