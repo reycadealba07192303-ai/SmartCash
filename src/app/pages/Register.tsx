@@ -253,7 +253,6 @@ const Register: React.FC = () => {
                 >
                   <option value="student">Student</option>
                   <option value="teacher">Teacher / Faculty</option>
-                  <option value="admin">Admin</option>
                 </select>
                 <div className="absolute top-[38px] right-4 pointer-events-none text-slate-500 dark:text-slate-400">
                   <ChevronDown size={20} />
