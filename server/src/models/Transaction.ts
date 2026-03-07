@@ -7,6 +7,7 @@ export interface ITransaction extends Document {
     amount: number;
     description?: string;
     date: Date;
+    is_edited?: boolean;
     createdAt: Date;
 }
 
@@ -17,6 +18,7 @@ const TransactionSchema: Schema = new Schema({
     amount: { type: Number, required: true },
     description: { type: String },
     date: { type: Date, default: Date.now },
+    is_edited: { type: Boolean, default: false },
 }, { timestamps: { createdAt: true, updatedAt: false } });
 
 export default mongoose.model<ITransaction>('Transaction', TransactionSchema);

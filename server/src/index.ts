@@ -6,7 +6,7 @@ import cors from 'cors';
 import http from 'http';
 import { initSocket } from './socket';
 import authRoutes from './routes/authRoutes';
-import { getTransactions, addTransaction, deleteTransaction, getSavingsGoals, addSavingsGoal, updateSavingsGoal } from './controllers/budgetController';
+import { getTransactions, addTransaction, deleteTransaction, updateTransaction, getSavingsGoals, addSavingsGoal, updateSavingsGoal } from './controllers/budgetController';
 import { getBadges, getLeaderboard } from './controllers/badgeController';
 import { authenticateUser } from './middleware/authMiddleware';
 import { connectDB } from './db/mongoose';
@@ -36,6 +36,7 @@ const budgetRouter = express.Router();
 budgetRouter.use(authenticateUser);
 budgetRouter.get('/transactions', getTransactions);
 budgetRouter.post('/transactions', addTransaction);
+budgetRouter.patch('/transactions/:id', updateTransaction);
 budgetRouter.delete('/transactions/:id', deleteTransaction);
 budgetRouter.get('/savings', getSavingsGoals);
 budgetRouter.post('/savings', addSavingsGoal);
@@ -95,7 +96,7 @@ facultyRouter.get('/student-progress', getStudentProgress);
 app.use('/api/faculty', facultyRouter);
 
 // Student Routes
-import { getStudentStats, getModulesWithProgress, getLesson, markLessonComplete, getFinancialTip, submitQuizResult, downloadTemplate, submitForumPost, getForumPosts, getBlogPosts, getLatestQuizzes, getQuiz, getQuizByModule, deleteOwnAccount, likeForumPost, addForumComment, getForumComments } from './controllers/studentController';
+import { getStudentStats, getModulesWithProgress, getLesson, markLessonComplete, getFinancialTip, submitQuizResult, getQuizHistory, downloadTemplate, submitForumPost, getForumPosts, getBlogPosts, getLatestQuizzes, getQuiz, getQuizByModule, deleteOwnAccount, likeForumPost, addForumComment, getForumComments } from './controllers/studentController';
 
 const studentRouter = express.Router();
 studentRouter.use(authenticateUser);
@@ -103,8 +104,9 @@ studentRouter.get('/dashboard', getStudentStats);
 studentRouter.get('/modules', getModulesWithProgress);
 studentRouter.get('/lessons/:id', getLesson);
 studentRouter.post('/lessons/:id/complete', markLessonComplete);
-studentRouter.get('/financial-tips', getFinancialTip);
+studentRouter.post('/financial-tips', getFinancialTip);
 studentRouter.post('/quizzes/complete', submitQuizResult);
+studentRouter.get('/quizzes/history', getQuizHistory);
 studentRouter.get('/quizzes/latest', getLatestQuizzes);
 studentRouter.get('/quizzes/module/:moduleId', getQuizByModule);
 studentRouter.get('/quizzes/:id', getQuiz);

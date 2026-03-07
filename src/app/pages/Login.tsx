@@ -5,6 +5,7 @@ import { motion } from 'motion/react';
 import { Facebook, Twitter, Linkedin } from 'lucide-react';
 import ThemeToggle from '../components/ThemeToggle';
 import { useAuth } from '../../context/AuthContext';
+import { API_BASE } from '../../config/api';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -20,7 +21,7 @@ const Login: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://smartcash-x4j5.onrender.com/api/auth/login', {
+      const response = await fetch(`${API_BASE}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -13,6 +13,7 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ quiz }) => {
     const [selectedOption, setSelectedOption] = useState<number | null>(null);
     const [showExplanation, setShowExplanation] = useState(false);
     const [score, setScore] = useState(0);
+    const [givenAnswers, setGivenAnswers] = useState<number[]>([]);
     const [isCompleted, setIsCompleted] = useState(false);
     const [finalScore, setFinalScore] = useState(0);
     const { token, user } = useAuth();
@@ -27,6 +28,13 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ quiz }) => {
 
     const checkAnswer = () => {
         setShowExplanation(true);
+        const currentAns = selectedOption !== null ? selectedOption : -1;
+        setGivenAnswers(prev => {
+            const newAns = [...prev];
+            newAns[currentQuestionIndex] = currentAns;
+            return newAns;
+        });
+
         if (selectedOption === currentQuestion.correctAnswer) {
             setScore(score + 1);
         }
@@ -34,8 +42,9 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ quiz }) => {
 
     const nextQuestion = async () => {
         if (isLastQuestion) {
-            const fs = selectedOption === currentQuestion.correctAnswer ? score + 1 : score;
-            setFinalScore(fs);
+            // `score` is already updated by `checkAnswer` when the user clicked "Check Answer".
+            // We just need to use `score` as the final score.
+            setFinalScore(score);
             setIsCompleted(true);
 
             // Persist quiz completion in localStorage so My Modules page can read it
@@ -48,10 +57,21 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ quiz }) => {
 
             if (token) {
                 try {
-                    await fetch('https://smartcash-x4j5.onrender.com/api/student/quizzes/complete', {
+                    await fetch('http://localhost:5000/api/student/quizzes/complete', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-                        body: JSON.stringify({ score: fs, total: quiz.questions.length })
+                        body: JSON.stringify({
+                            quizId: quiz.id,
+                            quizTitle: quiz.title,
+                            score: score,
+                            total: quiz.questions.length,
+                            answers: givenAnswers,
+                            questions: quiz.questions.map(q => ({
+                                text: q.text,
+                                options: q.options,
+                                correctAnswer: q.correctAnswer
+                            }))
+                        })
                     });
                 } catch (err) {
                     console.error('Failed to submit quiz result', err);
@@ -69,6 +89,7 @@ const QuizInterface: React.FC<QuizInterfaceProps> = ({ quiz }) => {
         setSelectedOption(null);
         setShowExplanation(false);
         setScore(0);
+        setGivenAnswers([]);
         setFinalScore(0);
         setIsCompleted(false);
     };

@@ -14,6 +14,7 @@ import Quiz from '../models/Quiz';
 import { getIO } from '../socket';
 import Transaction from '../models/Transaction';
 import admin from '../config/firebase-admin';
+import QuizAttempt from '../models/QuizAttempt';
 
 // --- STUDENT DASHBOARD STATS ---
 export const getStudentStats = async (req: AuthRequest, res: Response) => {
@@ -173,6 +174,7 @@ export const markLessonComplete = async (req: AuthRequest, res: Response) => {
 export const getFinancialTip = async (req: AuthRequest, res: Response) => {
     try {
         const apiKey = process.env.GEMINI_API_KEY;
+        const { totalSpent, savingsGoalName, savingsGoalCurrent, savingsGoalTarget, topCategories } = req.body || {};
 
         const fallbackTips = [
             "Saving even ₱20 a day adds up to ₱7,300 a year! Small habits make a big difference.",
@@ -190,7 +192,16 @@ export const getFinancialTip = async (req: AuthRequest, res: Response) => {
         const genAI = new GoogleGenerativeAI(apiKey as string);
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
-        const prompt = "You are a friendly financial advisor for high school and college students in the Philippines. Give exactly ONE short, practical, and highly motivating financial tip (maximum 2 sentences) about saving money or budgeting. Do not use markdown like bold or bullet points.";
+        let contextInfo = '';
+        if (totalSpent) contextInfo += `The student spent ₱${totalSpent.toLocaleString()} this month. `;
+        if (topCategories && topCategories.length > 0) contextInfo += `Their top spending categories are: ${topCategories.join(', ')}. `;
+        if (savingsGoalName && savingsGoalTarget) {
+            contextInfo += `They have a savings goal called "${savingsGoalName}" — saved ₱${savingsGoalCurrent || 0} out of ₱${savingsGoalTarget}. `;
+        }
+
+        const prompt = contextInfo
+            ? `You are a friendly and encouraging financial advisor for Filipino high school and college students. Based on this student's financial situation: ${contextInfo}Give ONE short, specific, and practical money tip (max 2 sentences) tailored to their situation. Be warm and conversational. Do not use markdown formatting.`
+            : `You are a friendly financial advisor for high school and college students in the Philippines. Give exactly ONE short, practical, and highly motivating financial tip (maximum 2 sentences) about saving money or budgeting. Do not use markdown like bold or bullet points.`;
 
         const result = await model.generateContent(prompt);
         const responseText = result.response.text().trim();
@@ -208,13 +219,39 @@ import { awardBadgeByName } from '../services/badgeAwardService';
 export const submitQuizResult = async (req: AuthRequest, res: Response) => {
     try {
         const userId = req.user?.id;
-        const { score, total } = req.body;
+        const { quizId, quizTitle, score, total, answers, questions } = req.body;
 
         const percentage = (score / total) * 100;
         if (percentage >= 80) {
             await awardBadgeByName(userId as string, 'Quiz Master');
         }
+
+        // Save Attempt
+        if (quizId && quizTitle) {
+            const attempt = new QuizAttempt({
+                user_id: userId,
+                quiz_id: quizId,
+                quiz_title: quizTitle,
+                score,
+                total,
+                percentage,
+                answers: answers || [],
+                questions: questions || []
+            });
+            await attempt.save();
+        }
+
         res.status(200).json({ success: true, awarded: percentage >= 80 });
+    } catch (error: any) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+export const getQuizHistory = async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = req.user?.id;
+        const history = await QuizAttempt.find({ user_id: userId }).sort({ taken_at: -1 });
+        res.status(200).json(history);
     } catch (error: any) {
         res.status(500).json({ error: error.message });
     }

@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Leaf, Loader2, ArrowLeft, CheckCircle, XCircle, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ThemeToggle from '../components/ThemeToggle';
+import { API_BASE } from '../../config/api';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -32,7 +33,7 @@ const Register: React.FC = () => {
     setError(null);
 
     try {
-      const response = await fetch('https://smartcash-x4j5.onrender.com/api/auth/register', {
+      const response = await fetch(`${API_BASE}/api/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
