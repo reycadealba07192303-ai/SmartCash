@@ -4,12 +4,15 @@ import { Leaf, Loader2, ArrowLeft, CheckCircle, XCircle, ChevronDown } from 'luc
 import { motion, AnimatePresence } from 'motion/react';
 import ThemeToggle from '../components/ThemeToggle';
 import { API_BASE } from '../../config/api';
+import { PasswordStrength, isPasswordStrong } from '../components/PasswordStrength';
+import { Eye, EyeOff } from 'lucide-react';
 
 const Register: React.FC = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     password: '',
+    confirmPassword: '',
     role: 'student',
     schoolId: '',
     gradeLevel: '',
@@ -18,6 +21,8 @@ const Register: React.FC = () => {
 
   const [loading, setLoading] = useState(false);
   const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -31,6 +36,19 @@ const Register: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+
+    // Validate password
+    if (!isPasswordStrong(formData.password)) {
+      setError("Please ensure your password meets all security requirements.");
+      setLoading(false);
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      setError("Passwords do not match.");
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await fetch(`${API_BASE}/api/auth/register`, {
@@ -231,15 +249,56 @@ const Register: React.FC = () => {
 
                 <div>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Password</label>
+                  <div className="relative">
+                    <input
+                      name="password"
+                      type={showPassword ? "text" : "password"}
+                      required
+                      value={formData.password}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium pr-12"
+                      placeholder="••••••••"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                    >
+                      {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {formData.password && (
+                <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
+                  <PasswordStrength password={formData.password} />
+                </motion.div>
+              )}
+
+              {/* Confirm Password Row */}
+              <div>
+                <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Confirm Password</label>
+                <div className="relative">
                   <input
-                    name="password"
-                    type="password"
+                    name="confirmPassword"
+                    type={showConfirmPassword ? "text" : "password"}
                     required
-                    value={formData.password}
+                    value={(formData as any).confirmPassword}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium"
+                    className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-900 dark:text-white focus:ring-2 transition-all font-medium pr-12 ${(formData as any).confirmPassword && formData.password !== (formData as any).confirmPassword
+                        ? 'border-red-300 dark:border-red-800 focus:ring-red-500'
+                        : 'border-slate-200 dark:border-slate-700 focus:ring-emerald-500'
+                      }`}
                     placeholder="••••••••"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                  >
+                    {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
 
@@ -287,11 +346,7 @@ const Register: React.FC = () => {
                         className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium appearance-none"
                       >
                         <option value="">Select Strand</option>
-                        <option value="STEM">STEM</option>
                         <option value="ABM">ABM</option>
-                        <option value="HUMSS">HUMSS</option>
-                        <option value="GAS">GAS</option>
-                        <option value="TVL">TVL</option>
                       </select>
                       <div className="absolute top-[38px] right-4 pointer-events-none text-slate-500 dark:text-slate-400">
                         <ChevronDown size={20} />
@@ -305,7 +360,7 @@ const Register: React.FC = () => {
               <div className="pt-6">
                 <button
                   type="submit"
-                  disabled={loading}
+                  disabled={loading || !isPasswordStrong(formData.password) || formData.password !== (formData as any).confirmPassword}
                   className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-full uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/30 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed hover:scale-[1.02] transform duration-200"
                 >
                   {loading ? <Loader2 className="animate-spin" size={24} /> : 'Sign Up'}

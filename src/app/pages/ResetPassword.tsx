@@ -4,6 +4,7 @@ import { Leaf, Loader2, Lock, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'motion/react';
 import { confirmPasswordReset } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
+import { PasswordStrength, isPasswordStrong } from '../components/PasswordStrength';
 
 const ResetPassword: React.FC = () => {
     const [password, setPassword] = useState('');
@@ -30,6 +31,11 @@ const ResetPassword: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        if (!isPasswordStrong(password)) {
+            alert("Please ensure your password meets all security requirements.");
+            return;
+        }
 
         if (password !== confirmPassword) {
             alert("Passwords don't match");
@@ -97,12 +103,18 @@ const ResetPassword: React.FC = () => {
                             <button
                                 type="button"
                                 onClick={() => setShowPassword(!showPassword)}
-                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
                             >
                                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                             </button>
                         </div>
                     </div>
+
+                    {password && (
+                        <motion.div initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: 'auto' }}>
+                            <PasswordStrength password={password} />
+                        </motion.div>
+                    )}
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Confirm Password</label>
@@ -111,15 +123,18 @@ const ResetPassword: React.FC = () => {
                             required
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
-                            className="w-full px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 outline-none"
+                            className={`w-full px-5 py-3 rounded-xl border bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:ring-2 transition-all outline-none ${confirmPassword && password !== confirmPassword
+                                    ? 'border-red-300 dark:border-red-800 focus:ring-red-500 focus:border-red-500'
+                                    : 'border-slate-200 dark:border-slate-700 focus:ring-emerald-500/20 focus:border-emerald-500'
+                                }`}
                             placeholder="••••••••"
                         />
                     </div>
 
                     <button
                         type="submit"
-                        disabled={loading}
-                        className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2"
+                        disabled={loading || !isPasswordStrong(password) || password !== confirmPassword}
+                        className="w-full bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
                     >
                         {loading ? <Loader2 className="animate-spin" size={24} /> : 'Update Password'}
                     </button>
