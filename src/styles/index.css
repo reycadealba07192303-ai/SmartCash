@@ -3,6 +3,14 @@
 @import './theme.css';
 
 /* =============================================
+   HIDE NATIVE PASSWORD REVEAL ICON
+   ============================================= */
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
+}
+
+/* =============================================
    GLOBAL ELEGANT SCROLLBAR (entire app)
    ============================================= */
 ::-webkit-scrollbar {
