@@ -144,7 +144,7 @@ const Register: React.FC = () => {
             transition={{ delay: 0.4 }}
             className="bg-white/10 backdrop-blur-md p-6 rounded-3xl mb-8 shadow-2xl shadow-emerald-900/30 transform hover:scale-105 transition-transform duration-500 border border-white/5"
           >
-            <Leaf size={64} className="text-white" fill="currentColor" />
+            <img src="/logo.png" alt="SmartCash Logo" className="h-24 w-auto drop-shadow-lg" />
           </motion.div>
 
           <motion.h2
@@ -287,8 +287,8 @@ const Register: React.FC = () => {
                     value={(formData as any).confirmPassword}
                     onChange={handleChange}
                     className={`w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border text-slate-900 dark:text-white focus:ring-2 transition-all font-medium pr-12 ${(formData as any).confirmPassword && formData.password !== (formData as any).confirmPassword
-                        ? 'border-red-300 dark:border-red-800 focus:ring-red-500'
-                        : 'border-slate-200 dark:border-slate-700 focus:ring-emerald-500'
+                      ? 'border-red-300 dark:border-red-800 focus:ring-red-500'
+                      : 'border-slate-200 dark:border-slate-700 focus:ring-emerald-500'
                       }`}
                     placeholder="••••••••"
                   />

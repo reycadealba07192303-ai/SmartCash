@@ -58,9 +58,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
       <aside className="w-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/60 dark:border-slate-800/60 fixed h-full hidden md:flex flex-col z-20 shadow-lg shadow-slate-200/20 dark:shadow-none transition-all duration-300">
         <div className="p-8 border-b border-slate-100 dark:border-slate-800/60">
           <Link to="/" className="flex items-center gap-3">
-            <div className="bg-gradient-to-tr from-emerald-500 to-teal-400 text-white p-2.5 rounded-xl shadow-lg shadow-emerald-500/20">
-              <Leaf size={22} fill="currentColor" />
-            </div>
+            <img src="/logo.png" alt="SmartCash Logo" className="h-10 w-auto drop-shadow-sm" />
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white leading-none">
                 Smart<span className="text-emerald-500">Cash</span>

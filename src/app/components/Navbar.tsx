@@ -62,9 +62,7 @@ const Navbar: React.FC = () => {
       >
         <div className="flex justify-between items-center">
           <a href="#" className="flex items-center gap-2 group">
-            <div className="bg-emerald-500 text-white p-1.5 rounded-lg group-hover:rotate-12 transition-transform">
-              <Leaf size={20} fill="currentColor" />
-            </div>
+            <img src="/logo.png" alt="SmartCash Logo" className="h-8 w-auto group-hover:scale-110 transition-transform" />
             <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">
               Smart<span className="text-emerald-500">Cash</span>
             </span>
