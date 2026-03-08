@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Leaf } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -31,7 +32,7 @@ const Footer: React.FC = () => {
             <h4 className="font-bold text-slate-900 dark:text-white mb-6">Company</h4>
             <ul className="space-y-4 text-sm text-slate-500 dark:text-slate-400">
               <li><a href="/#about" className="hover:text-emerald-500 transition-colors">About Us</a></li>
-              <li><a href="/privacy-policy" className="hover:text-emerald-500 transition-colors">Privacy Policy</a></li>
+              <li><Link to="/privacy-policy" className="hover:text-emerald-500 transition-colors">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>
@@ -39,9 +40,9 @@ const Footer: React.FC = () => {
         <div className="border-t border-slate-200 dark:border-slate-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
           <p>© 2026 SmartCash. Built for STI College Malolos.</p>
           <div className="flex gap-8">
-            <a href="/privacy-policy" className="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy Policy</a>
-            <a href="/terms" className="hover:text-slate-900 dark:hover:text-white transition-colors">Terms</a>
-            <a href="/cookies" className="hover:text-slate-900 dark:hover:text-white transition-colors">Cookies</a>
+            <Link to="/privacy-policy" className="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy Policy</Link>
+            <Link to="/terms" className="hover:text-slate-900 dark:hover:text-white transition-colors">Terms</Link>
+            <Link to="/cookies" className="hover:text-slate-900 dark:hover:text-white transition-colors">Cookies</Link>
           </div>
         </div>
       </div>
