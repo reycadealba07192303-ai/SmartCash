@@ -7,7 +7,7 @@
  * Before deploying to production, change this back to:
  * https://smartcash-x4j5.onrender.com
  */
-export const API_BASE = 'http://localhost:5000';
+export const API_BASE = 'https://smartcash-eudv.onrender.com';
 
 /** Convenience helper — same as API_BASE */
 export const api = (path: string) => `${API_BASE}${path}`;
