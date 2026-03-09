@@ -91,14 +91,14 @@ const BudgetPage: React.FC = () => {
     const fetchBudgetData = async () => {
         try {
             // Fetch Transactions
-            const transRes = await fetch('https://smartcash-eudv.onrender.com/api/budget/transactions', {
+            const transRes = await fetch('https://smartcash-x4j5.onrender.com/api/budget/transactions', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const transData = await transRes.json();
             if (transRes.ok) setTransactions(transData);
 
             // Fetch Savings
-            const savingsRes = await fetch('https://smartcash-eudv.onrender.com/api/budget/savings', {
+            const savingsRes = await fetch('https://smartcash-x4j5.onrender.com/api/budget/savings', {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             const savingsData = await savingsRes.json();
@@ -137,7 +137,7 @@ const BudgetPage: React.FC = () => {
 
     const handleCreateDefaultGoal = async () => {
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/budget/savings', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/budget/savings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ name: 'My Goal', target_amount: 1000, current_amount: 0 })
@@ -228,7 +228,7 @@ const BudgetPage: React.FC = () => {
 
         try {
             // Add a Savings transaction — the backend will auto-increment the goal
-            await fetch('https://smartcash-eudv.onrender.com/api/budget/transactions', {
+            await fetch('https://smartcash-x4j5.onrender.com/api/budget/transactions', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({
@@ -250,7 +250,7 @@ const BudgetPage: React.FC = () => {
 
     const handleAcceptChallenge = async (challengeName: string, targetAmount: number) => {
         try {
-            const res = await fetch('https://smartcash-eudv.onrender.com/api/budget/savings', {
+            const res = await fetch('https://smartcash-x4j5.onrender.com/api/budget/savings', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ name: `CHALLENGE: ${challengeName}`, target_amount: targetAmount, current_amount: 0 })
@@ -280,7 +280,7 @@ const BudgetPage: React.FC = () => {
         setIsEditingGoal(false);
 
         try {
-            await fetch(`https://smartcash-eudv.onrender.com/api/budget/savings/${savingsGoal.id}`, {
+            await fetch(`https://smartcash-x4j5.onrender.com/api/budget/savings/${savingsGoal.id}`, {
                 method: 'PATCH',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ name: updatedGoal.name, target_amount: updatedGoal.target })
@@ -310,8 +310,8 @@ const BudgetPage: React.FC = () => {
         try {
             const isEdit = editingId !== null;
             const url = isEdit
-                ? `https://smartcash-eudv.onrender.com/api/budget/transactions/${editingId}`
-                : 'https://smartcash-eudv.onrender.com/api/budget/transactions';
+                ? `https://smartcash-x4j5.onrender.com/api/budget/transactions/${editingId}`
+                : 'https://smartcash-x4j5.onrender.com/api/budget/transactions';
             const method = isEdit ? 'PATCH' : 'POST';
 
             const res = await fetch(url, {
