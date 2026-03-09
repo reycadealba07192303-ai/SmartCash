@@ -208,7 +208,7 @@ const Register: React.FC = () => {
 
             <form onSubmit={handleRegister} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
+                <div className={formData.role === 'student' ? '' : 'md:col-span-2'}>
                   <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Full Name</label>
                   <input
                     name="fullName"
@@ -220,17 +220,19 @@ const Register: React.FC = () => {
                     placeholder="John Doe"
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">School ID</label>
-                  <input
-                    name="schoolId"
-                    type="text"
-                    value={formData.schoolId}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium"
-                    placeholder="2023-12345"
-                  />
-                </div>
+                {formData.role === 'student' && (
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">School ID</label>
+                    <input
+                      name="schoolId"
+                      type="text"
+                      value={formData.schoolId}
+                      onChange={handleChange}
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white focus:ring-2 focus:ring-emerald-500 transition-all font-medium"
+                      placeholder="2023-12345"
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
