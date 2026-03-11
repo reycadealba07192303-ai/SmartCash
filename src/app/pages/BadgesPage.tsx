@@ -75,6 +75,7 @@ const BadgesPage: React.FC = () => {
                     <p className="text-slate-500 dark:text-slate-400 text-lg">Collect badges as you master financial literacy.</p>
                 </header>
 
+<<<<<<< HEAD
                 <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
                     {/* Left Side - Badges Grid */}
                     <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -111,6 +112,190 @@ const BadgesPage: React.FC = () => {
                                                         const canvas = document.createElement('canvas');
                                                         canvas.width = W; canvas.height = H;
                                                         const ctx = canvas.getContext('2d')!;
+=======
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+                    {/* Badges Grid */}
+                    {badges.map((badge) => {
+                        const Icon = getIcon(badge.icon);
+                        return (
+                            <div key={badge.id} className={`col-span-1 relative overflow-hidden p-6 rounded-2xl border transition-all duration-300 ${badge.unlocked
+                                        ? 'bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border-slate-200/50 dark:border-slate-800/50 shadow-lg hover:translate-y-[-2px]'
+                                        : 'bg-slate-50 dark:bg-slate-900/30 border-slate-200 dark:border-slate-800 opacity-80'
+                                        }`}>
+                                        <div id={`badge-${badge.id}`} className="flex items-start gap-4">
+                                            <div className={`p-4 rounded-2xl ${badge.unlocked ? badge.bg_color : 'bg-slate-200 dark:bg-slate-800'} ${badge.unlocked ? badge.color : 'text-slate-400'}`}>
+                                                {badge.unlocked ? <Icon size={32} /> : <Lock size={32} />}
+                                            </div>
+                                            <div className="flex-1">
+                                                <h3 className={`font-bold text-lg ${badge.unlocked ? 'text-slate-900 dark:text-white' : 'text-slate-500 dark:text-slate-400'}`}>
+                                                    {badge.name}
+                                                </h3>
+                                                <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">{badge.description}</p>
+                                                {!badge.unlocked && (
+                                                    <span className="inline-block mt-3 text-[10px] font-bold uppercase tracking-wide bg-slate-200 dark:bg-slate-800 text-slate-500 px-2 py-1 rounded-md">
+                                                        Locked
+                                                    </span>
+                                                )}
+                                                {badge.unlocked && (
+                                                    <div className="mt-3 flex items-center justify-between">
+                                                        <span className="inline-block text-[10px] font-bold uppercase tracking-wide bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 px-2 py-1 rounded-md">
+                                                            Earned
+                                                        </span>
+                                                        <button
+                                                            onClick={() => {
+                                                                // ── Build a certificate using Canvas API ──
+                                                                const W = 1123, H = 794; // A4 landscape @ 96dpi
+                                                                const canvas = document.createElement('canvas');
+                                                                canvas.width = W; canvas.height = H;
+                                                                const ctx = canvas.getContext('2d')!;
+
+                                                                // Background gradient
+                                                                const bg = ctx.createLinearGradient(0, 0, W, H);
+                                                                bg.addColorStop(0, '#0f172a');
+                                                                bg.addColorStop(1, '#1e293b');
+                                                                ctx.fillStyle = bg;
+                                                                ctx.fillRect(0, 0, W, H);
+
+                                                                // Outer gold border
+                                                                ctx.strokeStyle = '#d4af37';
+                                                                ctx.lineWidth = 6;
+                                                                ctx.strokeRect(28, 28, W - 56, H - 56);
+                                                                // Inner gold border
+                                                                ctx.strokeStyle = 'rgba(212,175,55,0.4)';
+                                                                ctx.lineWidth = 2;
+                                                                ctx.strokeRect(42, 42, W - 84, H - 84);
+
+                                                                // Corner ornaments
+                                                                const ornament = (x: number, y: number, r1: number, r2: number) => {
+                                                                    ctx.strokeStyle = '#d4af37';
+                                                                    ctx.lineWidth = 3;
+                                                                    ctx.beginPath(); ctx.arc(x, y, r1, 0, Math.PI * 2); ctx.stroke();
+                                                                    ctx.beginPath(); ctx.arc(x, y, r2, 0, Math.PI * 2); ctx.stroke();
+                                                                };
+                                                                ornament(28, 28, 14, 22);
+                                                                ornament(W - 28, 28, 14, 22);
+                                                                ornament(28, H - 28, 14, 22);
+                                                                ornament(W - 28, H - 28, 14, 22);
+
+                                                                // Header: SmartCash
+                                                                ctx.textAlign = 'center';
+                                                                ctx.fillStyle = '#10b981';
+                                                                ctx.font = 'bold 22px sans-serif';
+                                                                ctx.letterSpacing = '6px';
+                                                                ctx.fillText('SMARTCASH', W / 2, 100);
+                                                                ctx.fillStyle = 'rgba(100,116,139,0.8)';
+                                                                ctx.font = '13px sans-serif';
+                                                                ctx.letterSpacing = '3px';
+                                                                ctx.fillText('FINANCIAL LITERACY PLATFORM', W / 2, 124);
+
+                                                                // Divider line
+                                                                const grad2 = ctx.createLinearGradient(160, 0, W - 160, 0);
+                                                                grad2.addColorStop(0, 'transparent');
+                                                                grad2.addColorStop(0.5, '#d4af37');
+                                                                grad2.addColorStop(1, 'transparent');
+                                                                ctx.strokeStyle = grad2;
+                                                                ctx.lineWidth = 1.5;
+                                                                ctx.beginPath(); ctx.moveTo(160, 140); ctx.lineTo(W - 160, 140); ctx.stroke();
+
+                                                                // "Certificate of Achievement"
+                                                                ctx.fillStyle = 'rgba(212,175,55,0.85)';
+                                                                ctx.font = 'italic 18px Georgia, serif';
+                                                                ctx.letterSpacing = '2px';
+                                                                ctx.fillText('Certificate of Achievement', W / 2, 180);
+
+                                                                // "This is to certify that"
+                                                                ctx.fillStyle = 'rgba(148,163,184,0.9)';
+                                                                ctx.font = '15px sans-serif';
+                                                                ctx.letterSpacing = '0px';
+                                                                ctx.fillText('This is to certify that', W / 2, 220);
+
+                                                                // Student name
+                                                                const studentName = (user?.fullName || user?.full_name || user?.email || 'Student').toUpperCase();
+                                                                ctx.fillStyle = '#ffffff';
+                                                                ctx.font = 'bold 54px Georgia, serif';
+                                                                ctx.fillText(studentName, W / 2, 300);
+
+                                                                // Name underline
+                                                                const nameW = ctx.measureText(studentName).width;
+                                                                ctx.strokeStyle = '#d4af37';
+                                                                ctx.lineWidth = 2;
+                                                                ctx.beginPath();
+                                                                ctx.moveTo(W / 2 - nameW / 2, 312);
+                                                                ctx.lineTo(W / 2 + nameW / 2, 312);
+                                                                ctx.stroke();
+
+                                                                // "has successfully earned the achievement"
+                                                                ctx.fillStyle = 'rgba(148,163,184,0.9)';
+                                                                ctx.font = '15px sans-serif';
+                                                                ctx.fillText('has successfully earned the achievement', W / 2, 355);
+
+                                                                // Badge name (gold, large)
+                                                                ctx.fillStyle = '#fbbf24';
+                                                                ctx.font = 'bold 38px Georgia, serif';
+                                                                ctx.fillText(`"${badge.name}"`, W / 2, 410);
+
+                                                                // Badge description
+                                                                ctx.fillStyle = 'rgba(148,163,184,0.85)';
+                                                                ctx.font = '14px sans-serif';
+                                                                // Wrap text
+                                                                const words = badge.description.split(' ');
+                                                                let line = ''; const lines: string[] = [];
+                                                                for (const word of words) {
+                                                                    const test = line + word + ' ';
+                                                                    if (ctx.measureText(test).width > 600) { lines.push(line.trim()); line = word + ' '; }
+                                                                    else line = test;
+                                                                }
+                                                                if (line) lines.push(line.trim());
+                                                                lines.forEach((l, i) => ctx.fillText(l, W / 2, 445 + i * 22));
+
+                                                                // Bottom divider
+                                                                ctx.strokeStyle = grad2;
+                                                                ctx.lineWidth = 1.5;
+                                                                ctx.beginPath(); ctx.moveTo(160, H - 140); ctx.lineTo(W - 160, H - 140); ctx.stroke();
+
+                                                                // Date
+                                                                const dateStr = new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' });
+                                                                ctx.fillStyle = 'rgba(100,116,139,0.8)';
+                                                                ctx.font = '13px sans-serif';
+                                                                ctx.fillText(`Awarded on ${dateStr}`, W / 2, H - 110);
+
+                                                                // SmartCash seal (emerald circle)
+                                                                ctx.fillStyle = '#10b981';
+                                                                ctx.beginPath(); ctx.arc(W / 2, H - 65, 24, 0, Math.PI * 2); ctx.fill();
+                                                                ctx.fillStyle = '#ffffff';
+                                                                ctx.font = 'bold 10px sans-serif';
+                                                                ctx.letterSpacing = '1px';
+                                                                ctx.fillText('VERIFIED', W / 2, H - 60);
+
+                                                                // Download
+                                                                const a = document.createElement('a');
+                                                                a.href = canvas.toDataURL('image/png');
+                                                                a.download = `SmartCash_Certificate_${badge.name.replace(/\s+/g, '_')}.png`;
+                                                                a.click();
+                                                            }}
+                                                            className="text-xs font-semibold bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 px-3 py-1.5 rounded-lg transition-colors flex items-center gap-1"
+                                                        >
+                                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" /><polyline points="7 10 12 15 17 10" /><line x1="12" x2="12" y1="15" y2="3" /></svg>
+                                                            Download
+                                                        </button>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                    })}
+                            
+                    {/* Leaderboard - Placed in the Grid */}
+                    <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:col-start-2 lg:row-start-3 bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 dark:border-slate-800/50 p-6 shadow-xl relative overflow-hidden flex flex-col h-[280px]">
+                                {/* Decorative Background Elements */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl" />
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl" />
+                                
+                                <div className="flex items-center justify-between mb-4 relative z-10">
+                                    <h3 className="text-lg font-bold font-display text-white tracking-tight">Class Leaderboard</h3>
+                                </div>
+>>>>>>> 3019d8d9f686fc50e02733d313e96df2fe6d708e
 
                                                         // Background gradient
                                                         const bg = ctx.createLinearGradient(0, 0, W, H);
@@ -246,6 +431,7 @@ const BadgesPage: React.FC = () => {
                                     </div>
                                 </div>
                             </div>
+<<<<<<< HEAD
                         )
                     })}
                     </div>
@@ -256,6 +442,14 @@ const BadgesPage: React.FC = () => {
                         <div className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg shadow-purple-500/30 text-center">
                             <div className="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3 border-4 border-white/20">
                                 <Trophy size={28} />
+=======
+
+                    {/* Leaderboard and Stats */}
+                    <div className="col-span-1 md:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2 space-y-8">
+                        <div className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-3xl p-8 text-white shadow-lg shadow-purple-500/30 text-center">
+                            <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white/20">
+                                <Trophy size={40} />
+>>>>>>> 3019d8d9f686fc50e02733d313e96df2fe6d708e
                             </div>
 
                             {(() => {
