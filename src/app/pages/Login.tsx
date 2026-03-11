@@ -84,7 +84,7 @@ const Login: React.FC = () => {
             className="max-w-md mx-auto w-full"
           >
             <div className="flex items-center gap-2 mb-8 md:hidden">
-              <img src="/logo.png" alt="SmartCash Logo" className="h-8 w-auto" />
+              <Leaf className="h-8 w-8 text-emerald-500" />
               <span className="font-bold text-2xl tracking-tight text-slate-900 dark:text-white">
                 Smart<span className="text-emerald-500">Cash</span>
               </span>
@@ -216,7 +216,7 @@ const Login: React.FC = () => {
             transition={{ delay: 0.4 }}
             className="bg-white/10 backdrop-blur-md p-6 rounded-3xl mb-8 shadow-2xl shadow-emerald-900/30 transform hover:scale-105 transition-transform duration-500 border border-white/5"
           >
-            <img src="/logo.png" alt="SmartCash Logo" className="h-24 w-auto drop-shadow-lg" />
+            <Leaf size={80} className="text-white drop-shadow-lg" />
           </motion.div>
 
           <motion.h2

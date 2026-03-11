@@ -1,6 +1,6 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Leaf, LayoutDashboard, BookOpen, Users, PieChart, LogOut, Settings, Award, MessageSquare, User, Download, Layers } from 'lucide-react';
+import { Leaf, LayoutDashboard, BookOpen, Users, PieChart, LogOut, Settings, Award, MessageSquare, User, Download, Layers, Menu, X } from 'lucide-react';
 import ThemeToggle from '../../components/ThemeToggle';
 
 interface DashboardLayoutProps {
@@ -9,6 +9,7 @@ interface DashboardLayoutProps {
 }
 
 const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
   const isActive = (path: string) => {
     if (path === '/dashboard/student' || path === '/dashboard/faculty' || path === '/dashboard/admin') {
@@ -54,11 +55,35 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex transition-colors duration-300">
+      {/* Mobile Header */}
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-30 flex items-center justify-between px-4 shadow-sm">
+        <Link to="/" className="flex items-center gap-2">
+          <Leaf className="h-6 w-6 text-emerald-500" />
+          <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white leading-none">
+            Smart<span className="text-emerald-500">Cash</span>
+          </span>
+        </Link>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-colors"
+        >
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
+      </div>
+
+      {/* Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="md:hidden fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30"
+          onClick={() => setIsMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="w-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/60 dark:border-slate-800/60 fixed h-full hidden md:flex flex-col z-20 shadow-lg shadow-slate-200/20 dark:shadow-none transition-all duration-300">
+      <aside className={`w-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/60 dark:border-slate-800/60 fixed inset-y-0 left-0 h-full flex flex-col z-40 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} shadow-2xl md:shadow-lg md:shadow-slate-200/20 dark:shadow-none`}>
         <div className="p-8 border-b border-slate-100 dark:border-slate-800/60">
           <Link to="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="SmartCash Logo" className="h-10 w-auto drop-shadow-sm" />
+            <Leaf className="h-8 w-8 text-emerald-500 drop-shadow-sm" />
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white leading-none">
                 Smart<span className="text-emerald-500">Cash</span>
@@ -76,6 +101,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
             <Link
               key={item.path}
               to={item.path}
+              onClick={() => setIsMobileMenuOpen(false)}
               className={`flex items-center gap-3 px-4 py-3.5 rounded-xl text-sm font-medium transition-all duration-200 group ${isActive(item.path)
                 ? 'bg-gradient-to-r from-emerald-500/10 to-teal-500/10 text-emerald-600 dark:text-emerald-400 shadow-sm border border-emerald-100 dark:border-emerald-900/20'
                 : 'text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:text-slate-900 dark:hover:text-white hover:translate-x-1'
@@ -106,7 +132,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 md:ml-72 p-8 lg:p-12 overflow-y-auto min-h-screen relative">
+      <main className="flex-1 md:ml-72 p-4 pt-20 md:p-8 lg:p-12 overflow-y-auto min-h-screen relative w-full overflow-x-hidden">
         {/* Background Decoration */}
         <div className="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none opacity-40 dark:opacity-20">
           <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-emerald-200/30 rounded-full blur-[120px]" />
