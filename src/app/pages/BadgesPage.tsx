@@ -289,7 +289,7 @@ const BadgesPage: React.FC = () => {
                 </div>
 
                 {/* Leaderboard - Moved to Bottom */}
-                <div className="mt-8 bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-slate-800 dark:border-slate-800/50 p-8 shadow-2xl relative overflow-hidden">
+                <div className="mt-8 max-w-4xl mx-auto bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-slate-800 dark:border-slate-800/50 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
                     {/* Decorative Background Elements */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
                     <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl" />
@@ -301,12 +301,12 @@ const BadgesPage: React.FC = () => {
                         </div>
                     </div>
 
-                    <div className="max-h-[400px] overflow-y-auto pr-2 space-y-3 relative z-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                    <div className="max-h-[350px] overflow-y-auto pr-2 space-y-2.5 relative z-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                         {leaderboard.map((student) => (
-                            <div key={student.rank} className={`flex items-center gap-5 p-4 rounded-2xl transition-all duration-300 border ${student.isMe ? 'bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border-emerald-500/30 shadow-lg shadow-emerald-500/10 scale-[1.01]' : 'bg-slate-800/40 border-slate-700/50 hover:bg-slate-800 hover:border-slate-600/50'}`}>
-
+                            <div key={student.rank} className={`flex items-center gap-4 p-3 rounded-2xl transition-all duration-300 border ${student.isMe ? 'bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border-emerald-500/30 shadow-lg shadow-emerald-500/10 scale-[1.01]' : 'bg-slate-800/40 border-slate-700/50 hover:bg-slate-800 hover:border-slate-600/50'}`}>
+                                
                                 {/* Rank */}
-                                <div className={`w-10 h-10 flex items-center justify-center rounded-xl text-lg font-black shadow-inner ${student.rank === 1 ? 'bg-gradient-to-br from-yellow-200 to-amber-400 text-amber-900 shadow-amber-500/20' :
+                                <div className={`w-8 h-8 flex items-center justify-center rounded-xl text-base font-black shadow-inner ${student.rank === 1 ? 'bg-gradient-to-br from-yellow-200 to-amber-400 text-amber-900 shadow-amber-500/20' :
                                     student.rank === 2 ? 'bg-gradient-to-br from-slate-200 to-slate-400 text-slate-800' :
                                         student.rank === 3 ? 'bg-gradient-to-br from-orange-200 to-orange-400 text-orange-900' :
                                             'bg-slate-800 text-slate-400 border border-slate-700'
@@ -315,17 +315,17 @@ const BadgesPage: React.FC = () => {
                                 </div>
 
                                 {/* Avatar */}
-                                <div className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-bold shadow-md ${student.isMe ? 'bg-emerald-500 text-white' : 'bg-slate-700 text-slate-300'}`}>
+                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-md ${student.isMe ? 'bg-emerald-500 text-white' : 'bg-slate-700 text-slate-300'}`}>
                                     {student.name.charAt(0)}
                                 </div>
 
                                 {/* Details */}
                                 <div className="flex-1">
-                                    <p className={`font-bold text-lg leading-tight ${student.isMe ? 'text-emerald-400' : 'text-slate-100'}`}>
+                                    <p className={`font-bold text-base leading-tight ${student.isMe ? 'text-emerald-400' : 'text-slate-100'}`}>
                                         {student.name} {student.isMe && '(You)'}
                                     </p>
-                                    <p className="text-sm font-medium text-slate-400 mt-1 flex items-center gap-1.5">
-                                        <Star size={14} className={student.isMe ? "text-emerald-500" : "text-slate-500"} />
+                                    <p className="text-xs font-medium text-slate-400 mt-0.5 flex items-center gap-1.5">
+                                        <Star size={12} className={student.isMe ? "text-emerald-500" : "text-slate-500"} />
                                         {student.points} XP
                                     </p>
                                 </div>
