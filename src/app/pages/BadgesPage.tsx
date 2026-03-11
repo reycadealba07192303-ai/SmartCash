@@ -249,6 +249,54 @@ const BadgesPage: React.FC = () => {
                                     </div>
                                 )
                             })}
+                            
+                            {/* Leaderboard - Placed in the Grid */}
+                            <div className="bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 dark:border-slate-800/50 p-6 shadow-xl relative overflow-hidden flex flex-col h-[230px]">
+                                {/* Decorative Background Elements */}
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl" />
+                                <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl" />
+                                
+                                <div className="flex items-center justify-between mb-4 relative z-10">
+                                    <h3 className="text-lg font-bold font-display text-white tracking-tight">Class Leaderboard</h3>
+                                </div>
+
+                                <div className="flex-1 overflow-y-auto pr-2 space-y-2 relative z-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                                    {leaderboard.map((student) => (
+                                        <div key={student.rank} className={`flex items-center gap-3 p-2 rounded-xl transition-all duration-300 border ${student.isMe ? 'bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border-emerald-500/30' : 'bg-slate-800/40 border-slate-700/50'}`}>
+                                            
+                                            {/* Rank */}
+                                            <div className={`w-6 h-6 flex items-center justify-center rounded-lg text-xs font-black shadow-inner ${student.rank === 1 ? 'bg-gradient-to-br from-yellow-200 to-amber-400 text-amber-900 shadow-amber-500/20' :
+                                                student.rank === 2 ? 'bg-gradient-to-br from-slate-200 to-slate-400 text-slate-800' :
+                                                    student.rank === 3 ? 'bg-gradient-to-br from-orange-200 to-orange-400 text-orange-900' :
+                                                        'bg-slate-800 text-slate-400 border border-slate-700'
+                                                }`}>
+                                                {student.rank}
+                                            </div>
+
+                                            {/* Avatar */}
+                                            <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold shadow-md ${student.isMe ? 'bg-emerald-500 text-white' : 'bg-slate-700 text-slate-300'}`}>
+                                                {student.name.charAt(0)}
+                                            </div>
+
+                                            {/* Details */}
+                                            <div className="flex-1 min-w-0">
+                                                <p className={`font-bold text-sm leading-tight truncate ${student.isMe ? 'text-emerald-400' : 'text-slate-100'}`}>
+                                                    {student.name} {student.isMe && '(You)'}
+                                                </p>
+                                                <p className="text-[10px] font-medium text-slate-400 mt-0.5 flex items-center gap-1">
+                                                    <Star size={10} className={student.isMe ? "text-emerald-500" : "text-slate-500"} />
+                                                    {student.points} XP
+                                                </p>
+                                            </div>
+
+                                            {/* Highlight for top 3 */}
+                                            {student.rank <= 3 && (
+                                                <Trophy size={14} className={`ml-1 ${student.rank === 1 ? 'text-amber-400' : student.rank === 2 ? 'text-slate-300' : 'text-orange-400'}`}/>
+                                            )}
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -285,60 +333,6 @@ const BadgesPage: React.FC = () => {
                                 );
                             })()}
                         </div>
-                    </div>
-                </div>
-
-                {/* Leaderboard - Moved to Bottom */}
-                <div className="mt-8 max-w-4xl mx-auto bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-3xl border border-slate-800 dark:border-slate-800/50 p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-                    {/* Decorative Background Elements */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full blur-3xl" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl" />
-
-                    <div className="flex items-center justify-between mb-8 relative z-10">
-                        <h3 className="text-2xl font-bold font-display text-white tracking-tight">Class Leaderboard</h3>
-                        <div className="flex gap-2">
-                            <span className="text-xs font-semibold uppercase tracking-wider bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/20">Top Students</span>
-                        </div>
-                    </div>
-
-                    <div className="max-h-[350px] overflow-y-auto pr-2 space-y-2.5 relative z-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-                        {leaderboard.map((student) => (
-                            <div key={student.rank} className={`flex items-center gap-4 p-3 rounded-2xl transition-all duration-300 border ${student.isMe ? 'bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border-emerald-500/30 shadow-lg shadow-emerald-500/10 scale-[1.01]' : 'bg-slate-800/40 border-slate-700/50 hover:bg-slate-800 hover:border-slate-600/50'}`}>
-                                
-                                {/* Rank */}
-                                <div className={`w-8 h-8 flex items-center justify-center rounded-xl text-base font-black shadow-inner ${student.rank === 1 ? 'bg-gradient-to-br from-yellow-200 to-amber-400 text-amber-900 shadow-amber-500/20' :
-                                    student.rank === 2 ? 'bg-gradient-to-br from-slate-200 to-slate-400 text-slate-800' :
-                                        student.rank === 3 ? 'bg-gradient-to-br from-orange-200 to-orange-400 text-orange-900' :
-                                            'bg-slate-800 text-slate-400 border border-slate-700'
-                                    }`}>
-                                    {student.rank}
-                                </div>
-
-                                {/* Avatar */}
-                                <div className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold shadow-md ${student.isMe ? 'bg-emerald-500 text-white' : 'bg-slate-700 text-slate-300'}`}>
-                                    {student.name.charAt(0)}
-                                </div>
-
-                                {/* Details */}
-                                <div className="flex-1">
-                                    <p className={`font-bold text-base leading-tight ${student.isMe ? 'text-emerald-400' : 'text-slate-100'}`}>
-                                        {student.name} {student.isMe && '(You)'}
-                                    </p>
-                                    <p className="text-xs font-medium text-slate-400 mt-0.5 flex items-center gap-1.5">
-                                        <Star size={12} className={student.isMe ? "text-emerald-500" : "text-slate-500"} />
-                                        {student.points} XP
-                                    </p>
-                                </div>
-
-                                {/* Highlight for top 3 */}
-                                {student.rank <= 3 && (
-                                    <div className="hidden sm:flex px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-bold text-slate-300 uppercase tracking-wider items-center gap-1">
-                                        <Trophy size={12} className={student.rank === 1 ? 'text-amber-400' : student.rank === 2 ? 'text-slate-300' : 'text-orange-400'} />
-                                        Top {student.rank}
-                                    </div>
-                                )}
-                            </div>
-                        ))}
                     </div>
                 </div>
             </div>
