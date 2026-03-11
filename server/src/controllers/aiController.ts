@@ -38,8 +38,19 @@ export const generateQuiz = async (req: Request, res: Response) => {
 export const generateAndSeedBlogPosts = async (req: Request, res: Response) => {
     try {
         const existing = await BlogPost.find().sort({ createdAt: -1 });
+
+        // If posts exist, check if the newest one is less than 1 hour old
         if (existing.length > 0) {
-            return res.json(existing);
+            const newestPost = existing[0];
+            const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000);
+
+            if (newestPost.createdAt > oneHourAgo) {
+                // Posts are fresh enough, return them
+                return res.json(existing);
+            } else {
+                // Posts are older than 1 hour, delete them and generate new ones
+                await BlogPost.deleteMany({});
+            }
         }
 
         const posts = await generateBlogPostsAI();

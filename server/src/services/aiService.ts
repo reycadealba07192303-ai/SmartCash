@@ -77,17 +77,8 @@ export const generateBlogPostsAI = async () => {
 
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
 
-    const topics = [
-        { title: 'The 50/30/20 Budget Rule Explained', category: 'Budgeting' },
-        { title: 'Why You Should Start Saving in High School', category: 'Savings' },
-        { title: 'Understanding Interest Rates for Students', category: 'Banking' },
-        { title: 'How to Track Your Daily Spending', category: 'Budgeting' },
-        { title: 'What is an Emergency Fund and Why Do You Need One?', category: 'Savings' },
-        { title: 'Smart Ways to Use Your Allowance', category: 'Financial Literacy' },
-    ];
-
     const prompt = `You are a financial literacy educator for senior high school students in the Philippines using the SmartCash app.
-Generate 6 blog articles based on the following topics. Each article should be concise and engaging.
+Generate 6 unique, randomly selected blog articles about different financial literacy topics (e.g., Budgeting, Savings, Banking, Investing, Scams, Allowances, etc.). Each article should be concise and engaging. Do not use the exact same topics every time.
 
 Return ONLY a valid JSON array with 6 objects. Each object must have exactly these fields:
 - "title": the article title (string)
@@ -95,9 +86,6 @@ Return ONLY a valid JSON array with 6 objects. Each object must have exactly the
 - "excerpt": a 1-sentence summary of the article (string)
 - "content": the full article body in plain text, 3-4 paragraphs (string)
 - "author_name": "SmartCash AI"
-
-Topics:
-${topics.map((t, i) => `${i + 1}. Title: "${t.title}", Category: "${t.category}"`).join('\n')}
 
 Return ONLY valid JSON. No markdown code blocks.`;
 
