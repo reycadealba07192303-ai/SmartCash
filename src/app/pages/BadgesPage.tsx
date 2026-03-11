@@ -75,14 +75,12 @@ const BadgesPage: React.FC = () => {
                     <p className="text-slate-500 dark:text-slate-400 text-lg">Collect badges as you master financial literacy.</p>
                 </header>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
                     {/* Badges Grid */}
-                    <div className="lg:col-span-2">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {badges.map((badge) => {
-                                const Icon = getIcon(badge.icon);
-                                return (
-                                    <div key={badge.id} className={`relative overflow-hidden p-6 rounded-2xl border transition-all duration-300 ${badge.unlocked
+                    {badges.map((badge) => {
+                        const Icon = getIcon(badge.icon);
+                        return (
+                            <div key={badge.id} className={`col-span-1 relative overflow-hidden p-6 rounded-2xl border transition-all duration-300 ${badge.unlocked
                                         ? 'bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl border-slate-200/50 dark:border-slate-800/50 shadow-lg hover:translate-y-[-2px]'
                                         : 'bg-slate-50 dark:bg-slate-900/30 border-slate-200 dark:border-slate-800 opacity-80'
                                         }`}>
@@ -248,9 +246,10 @@ const BadgesPage: React.FC = () => {
                                         </div>
                                     </div>
                                 )
-                            })}
-                                                  {/* Leaderboard - Placed in the Grid */}
-                            <div className="bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 dark:border-slate-800/50 p-6 shadow-xl relative overflow-hidden flex flex-col h-[280px]">
+                    })}
+                            
+                    {/* Leaderboard - Placed in the Grid */}
+                    <div className="col-span-1 md:col-span-2 lg:col-span-2 lg:col-start-2 lg:row-start-3 bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 dark:border-slate-800/50 p-6 shadow-xl relative overflow-hidden flex flex-col h-[280px]">
                                 {/* Decorative Background Elements */}
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl" />
                                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl" />
@@ -296,11 +295,9 @@ const BadgesPage: React.FC = () => {
                                     ))}
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
                     {/* Leaderboard and Stats */}
-                    <div className="space-y-8">
+                    <div className="col-span-1 md:col-span-2 lg:col-span-1 lg:col-start-3 lg:row-start-1 lg:row-span-2 space-y-8">
                         <div className="bg-gradient-to-br from-purple-600 to-indigo-600 rounded-3xl p-8 text-white shadow-lg shadow-purple-500/30 text-center">
                             <div className="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-4 border-4 border-white/20">
                                 <Trophy size={40} />
