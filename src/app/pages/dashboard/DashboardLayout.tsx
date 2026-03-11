@@ -57,7 +57,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
     <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex transition-colors duration-300">
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 z-30 flex items-center justify-between px-4 shadow-sm">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to={role === 'teacher' ? '/dashboard/faculty' : `/dashboard/${role}`} className="flex items-center gap-2">
           <Leaf className="h-6 w-6 text-emerald-500" />
           <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white leading-none">
             Smart<span className="text-emerald-500">Cash</span>
@@ -82,7 +82,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
       {/* Sidebar */}
       <aside className={`w-72 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-r border-slate-200/60 dark:border-slate-800/60 fixed inset-y-0 left-0 h-full flex flex-col z-40 transform transition-transform duration-300 ease-in-out md:translate-x-0 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'} shadow-2xl md:shadow-lg md:shadow-slate-200/20 dark:shadow-none`}>
         <div className="p-8 border-b border-slate-100 dark:border-slate-800/60">
-          <Link to="/" className="flex items-center gap-3">
+          <Link to={role === 'teacher' ? '/dashboard/faculty' : `/dashboard/${role}`} className="flex items-center gap-3">
             <Leaf className="h-8 w-8 text-emerald-500 drop-shadow-sm" />
             <div className="flex flex-col">
               <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white leading-none">
