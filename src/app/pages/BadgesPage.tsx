@@ -249,9 +249,8 @@ const BadgesPage: React.FC = () => {
                                     </div>
                                 )
                             })}
-                            
-                            {/* Leaderboard - Placed in the Grid */}
-                            <div className="bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 dark:border-slate-800/50 p-6 shadow-xl relative overflow-hidden flex flex-col h-[230px]">
+                                                  {/* Leaderboard - Placed in the Grid */}
+                            <div className="bg-slate-900/95 dark:bg-slate-900/80 backdrop-blur-xl rounded-2xl border border-slate-800 dark:border-slate-800/50 p-6 shadow-xl relative overflow-hidden flex flex-col h-[280px]">
                                 {/* Decorative Background Elements */}
                                 <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-2xl" />
                                 <div className="absolute bottom-0 left-0 w-32 h-32 bg-indigo-500/5 rounded-full blur-2xl" />
