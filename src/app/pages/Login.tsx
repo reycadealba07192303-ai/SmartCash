@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Leaf, Loader2, ArrowRight, ArrowLeft, XCircle } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -15,6 +15,13 @@ const Login: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   const { login } = useAuth();
+
+  // Wake up the Render backend as early as possible
+  useEffect(() => {
+    fetch(`${API_BASE}/api/health`).catch(() => {
+      // Ignore errors; this is just a wake-up call
+    });
+  }, []);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
