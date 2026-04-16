@@ -80,13 +80,13 @@ export default function StudentPaymentsPage() {
                                     {payments.map(tx => (
                                         <tr key={tx._id} className="hover:bg-slate-50/50 dark:hover:bg-slate-800/20 transition-colors">
                                             <td className="px-6 py-5 text-sm text-slate-600 dark:text-slate-300">
-                                                {new Date(tx.createdAt).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' })} <br/>
+                                                {tx.createdAt && !isNaN(new Date(tx.createdAt).getTime()) ? new Date(tx.createdAt).toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Unknown Date'} <br/>
                                                 <span className="text-xs text-slate-400">
-                                                    {new Date(tx.createdAt).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' })}
+                                                    {tx.createdAt && !isNaN(new Date(tx.createdAt).getTime()) ? new Date(tx.createdAt).toLocaleTimeString('en-PH', { hour: '2-digit', minute: '2-digit' }) : ''}
                                                 </span>
                                             </td>
                                             <td className="px-6 py-5">
-                                                <p className="font-bold text-slate-900 dark:text-white">₱ {tx.amount?.toFixed(2)}</p>
+                                                <p className="font-bold text-slate-900 dark:text-white">₱ {tx.amount ? Number(tx.amount).toFixed(2) : '0.00'}</p>
                                             </td>
                                             <td className="px-6 py-5 text-sm font-medium text-slate-600 dark:text-slate-300">
                                                 {tx.referenceNumber || 'Processing...'}
