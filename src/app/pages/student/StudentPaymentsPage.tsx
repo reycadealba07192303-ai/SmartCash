@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import DashboardLayout from '../dashboard/DashboardLayout';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../../context/AuthContext';
 import { API_BASE } from '../../../config/api';
 import { Loader2, Receipt, Clock, CheckCircle, XCircle } from 'lucide-react';
 
