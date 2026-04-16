@@ -23,6 +23,12 @@ export const authenticateUser = async (req: AuthRequest, res: Response, next: Ne
             return res.status(401).json({ error: 'Invalid token, user not found' });
         }
 
+        // Auto-downgrade expired premium accounts
+        if (user.isPremium && user.premiumExpiresAt && new Date(user.premiumExpiresAt) < new Date()) {
+            user.isPremium = false;
+            await user.save();
+        }
+
         req.user = user;
         next();
     } catch (error) {

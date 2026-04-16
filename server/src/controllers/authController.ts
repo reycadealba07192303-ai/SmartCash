@@ -65,7 +65,8 @@ export const register = async (req: Request, res: Response) => {
                 full_name: newUser.full_name,
                 school_id: newUser.school_id,
                 grade_level: newUser.grade_level,
-                strand: newUser.strand
+                strand: newUser.strand,
+                isPremium: newUser.isPremium
             },
             firebaseUid // Usually not returned but good for debugging our new system
         });
@@ -104,7 +105,8 @@ export const login = async (req: Request, res: Response) => {
                 full_name: user.full_name,
                 school_id: user.school_id,
                 grade_level: user.grade_level,
-                strand: user.strand
+                strand: user.strand,
+                isPremium: user.isPremium
             }
         });
 
@@ -199,5 +201,31 @@ export const updateProfile = async (req: AuthRequest, res: Response) => {
     } catch (error) {
         console.error('Update profile error:', error);
         res.status(500).json({ error: 'Server error' });
+    }
+};
+
+export const upgradeAccount = async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = req.user.id;
+        const plan = req.body.plan || 'monthly'; // Expected 'monthly' or 'yearly'
+        
+        const addition = plan === 'yearly' ? 365 : 30;
+        const newExpiry = new Date();
+        newExpiry.setDate(newExpiry.getDate() + addition);
+        
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { $set: { isPremium: true, premiumExpiresAt: newExpiry } },
+            { new: true }
+        ).select('-passwordHash');
+
+        if (!updatedUser) {
+            return res.status(404).json({ error: 'User not found' });
+        }
+
+        res.json({ message: 'Successfully upgraded to Premium!', user: updatedUser });
+    } catch (error) {
+        console.error('Upgrade account error:', error);
+        res.status(500).json({ error: 'Server error during upgrade' });
     }
 };

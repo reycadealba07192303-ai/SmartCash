@@ -10,6 +10,8 @@ export interface IUser extends Document {
     strand?: string;
     avatar_url?: string;
     status: 'Active' | 'Pending' | 'Suspended' | 'Inactive';
+    isPremium: boolean;
+    premiumExpiresAt?: Date;
     last_active: Date;
     createdAt: Date;
     updatedAt: Date;
@@ -25,6 +27,8 @@ const UserSchema: Schema = new Schema({
     strand: { type: String },
     avatar_url: { type: String },
     status: { type: String, enum: ['Active', 'Pending', 'Suspended', 'Inactive'], default: 'Active' },
+    isPremium: { type: Boolean, default: false },
+    premiumExpiresAt: { type: Date },
     last_active: { type: Date, default: Date.now }
 }, { timestamps: true });
 

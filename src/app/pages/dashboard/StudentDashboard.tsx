@@ -12,6 +12,7 @@ const StudentDashboard: React.FC = () => {
   const { token, user } = useAuth();
   const [stats, setStats] = useState<any>({
     fullName: '',
+    isPremium: undefined,
     lessonsCompleted: '0/0',
     currentStreak: '0 Days',
     totalSavings: '₱0',
@@ -66,6 +67,20 @@ const StudentDashboard: React.FC = () => {
           </h1>
           <p className="text-slate-500 dark:text-slate-400 text-lg">Track your progress and learn something new today.</p>
         </header>
+
+        {/* Premium Upgrade Banner */}
+        {((stats.isPremium !== undefined ? !stats.isPremium : !user?.isPremium)) && (
+          <div className="mb-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl p-6 md:p-8 text-white shadow-lg shadow-amber-500/20 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden">
+             <div className="absolute top-0 right-0 -mr-8 -mt-8 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+             <div className="flex-1 relative z-10">
+                <h3 className="text-xl font-bold mb-2 flex items-center gap-2"><Trophy size={20} /> Upgrade to Premium</h3>
+                <p className="text-amber-50">Your account is currently Basic. Upgrade to Premium to unlock all downloadable templates, advanced budget tools, and unlimited AI quizzes!</p>
+             </div>
+             <Link to="/checkout" className="relative z-10 shrink-0 bg-white text-orange-600 px-6 py-3 rounded-xl font-bold shadow-sm hover:shadow-lg hover:scale-105 transition-all">
+                Resubscribe Now
+             </Link>
+          </div>
+        )}
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">

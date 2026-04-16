@@ -60,6 +60,20 @@ const defaultBadges = [
         icon: 'Trophy',
         color: 'text-rose-600 dark:text-rose-400',
         bg_color: 'bg-rose-100 dark:bg-rose-900/30'
+    },
+    {
+        name: 'Super Saver',
+        description: 'Successfully accumulated ₱10,000 in your tracked savings goals.',
+        icon: 'Star',
+        color: 'text-cyan-600 dark:text-cyan-400',
+        bg_color: 'bg-cyan-100 dark:bg-cyan-900/30'
+    },
+    {
+        name: 'Master Iponaryo',
+        description: 'Incredible! You have accumulated ₱50,000 in your savings goals.',
+        icon: 'Award',
+        color: 'text-fuchsia-600 dark:text-fuchsia-400',
+        bg_color: 'bg-fuchsia-100 dark:bg-fuchsia-900/30'
     }
 ];
 

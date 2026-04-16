@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { API_BASE } from '../../config/api';
 
 interface User {
     id: string;
@@ -33,6 +33,30 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         if (storedToken && storedUser) {
             setToken(storedToken);
             setUser(JSON.parse(storedUser));
+            
+            // Sync user state with backend to catch premium upgrades
+            fetch(`${API_BASE}/api/auth/profile`, {
+                headers: { 'Authorization': `Bearer ${storedToken}` }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const userId = data._id || data.id;
+                if (data && userId) {
+                    const updatedUser = {
+                        id: userId,
+                        email: data.email,
+                        role: data.role,
+                        full_name: data.full_name,
+                        school_id: data.school_id,
+                        grade_level: data.grade_level,
+                        strand: data.strand,
+                        isPremium: data.isPremium
+                    };
+                    setUser(updatedUser as any);
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                }
+            })
+            .catch(err => console.error('Failed to sync user data', err));
         }
         setLoading(false);
     }, []);

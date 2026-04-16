@@ -6,6 +6,7 @@ import ProblemSolution from './components/ProblemSolution';
 import Features from './components/Features';
 import HowItWorks from './components/HowItWorks';
 import Testimonials from './components/Testimonials';
+import Subscriptions from './components/Subscriptions';
 import Footer from './components/Footer';
 import AboutSystem from './components/AboutSystem';
 
@@ -29,6 +30,7 @@ import ForumPage from './pages/ForumPage';
 import BlogPage from './pages/BlogPage';
 import TemplatesPage from './pages/TemplatesPage';
 import StudentModulesPage from './pages/StudentModulesPage';
+import CheckoutPage from './pages/CheckoutPage';
 
 import FacultyStudentsPage from './pages/faculty/FacultyStudentsPage';
 import FacultyContentPage from './pages/faculty/FacultyContentPage';
@@ -36,7 +38,9 @@ import FacultyDiscussionsPage from './pages/faculty/FacultyDiscussionsPage';
 
 import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminSettingsPage from './pages/admin/AdminSettingsPage';
+import AdminPaymentsPage from './pages/admin/AdminPaymentsPage';
 import UserProfilePage from './pages/UserProfilePage';
+import GcashPortal from './pages/GcashPortal';
 
 import { ThemeProvider } from '../context/ThemeContext';
 import { AuthProvider } from '../context/AuthContext';
@@ -51,6 +55,7 @@ function LandingPage() {
         <ProblemSolution />
         <Features />
         <HowItWorks />
+        <Subscriptions />
         <Testimonials />
       </main>
       <Footer />
@@ -74,6 +79,9 @@ function App() {
             <Route path="/cookies" element={<CookiesPolicy />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+            
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/gateway/gcash" element={<GcashPortal />} />
 
             {/* Student Routes */}
             <Route element={<ProtectedRoute allowedRoles={['student']} />}>
@@ -105,6 +113,7 @@ function App() {
             <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
               <Route path="/dashboard/admin" element={<AdminDashboard />} />
               <Route path="/dashboard/admin/users" element={<AdminUsersPage />} />
+              <Route path="/dashboard/admin/payments" element={<AdminPaymentsPage />} />
               <Route path="/dashboard/admin/settings" element={<AdminSettingsPage />} />
             </Route>
           </Routes>

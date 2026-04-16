@@ -1,5 +1,5 @@
 import express from 'express';
-import { register, login, forgotPassword, updatePassword, getProfile, updateProfile } from '../controllers/authController';
+import { register, login, forgotPassword, updatePassword, getProfile, updateProfile, upgradeAccount } from '../controllers/authController';
 import { authenticateUser, requireAdmin, AuthRequest } from '../middleware/authMiddleware';
 
 const router = express.Router();
@@ -13,6 +13,7 @@ router.post('/update-password', updatePassword);
 // Example protected routes
 router.get('/profile', authenticateUser, getProfile);
 router.put('/profile', authenticateUser, updateProfile);
+router.post('/upgrade', authenticateUser, upgradeAccount);
 
 router.get('/admin-dashboard', authenticateUser, requireAdmin, (req: AuthRequest, res) => {
     res.json({ message: 'Welcome Admin', user: req.user });

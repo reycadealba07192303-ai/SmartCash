@@ -5,6 +5,7 @@ interface User {
     email: string;
     role: 'student' | 'teacher' | 'admin';
     fullName?: string;
+    isPremium?: boolean;
     [key: string]: any;
 }
 
@@ -14,6 +15,7 @@ interface AuthContextType {
     loading: boolean;
     login: (token: string, user: User) => void;
     logout: () => void;
+    updateUser: (user: User) => void;
     isAuthenticated: boolean;
 }
 
@@ -51,6 +53,11 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         window.location.href = '/login';
     };
 
+    const updateUser = (newUser: User) => {
+        localStorage.setItem('user', JSON.stringify(newUser));
+        setUser(newUser);
+    };
+
     return (
         <AuthContext.Provider value={{
             user,
@@ -58,6 +65,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             loading,
             login,
             logout,
+            updateUser,
             isAuthenticated: !!user
         }}>
             {children}

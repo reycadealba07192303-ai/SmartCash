@@ -143,13 +143,13 @@ const BadgesPage: React.FC = () => {
                                                         // Header: SmartCash
                                                         ctx.textAlign = 'center';
                                                         ctx.fillStyle = '#10b981';
-                                                        ctx.font = 'bold 22px sans-serif';
+                                                        ctx.font = 'bold 36px sans-serif';
                                                         ctx.letterSpacing = '6px';
                                                         ctx.fillText('SMARTCASH', W / 2, 100);
                                                         ctx.fillStyle = 'rgba(100,116,139,0.8)';
-                                                        ctx.font = '13px sans-serif';
+                                                        ctx.font = '18px sans-serif';
                                                         ctx.letterSpacing = '3px';
-                                                        ctx.fillText('FINANCIAL LITERACY PLATFORM', W / 2, 124);
+                                                        ctx.fillText('FINANCIAL LITERACY PLATFORM', W / 2, 134);
 
                                                         // Divider line
                                                         const grad2 = ctx.createLinearGradient(160, 0, W - 160, 0);
@@ -162,54 +162,54 @@ const BadgesPage: React.FC = () => {
 
                                                         // "Certificate of Achievement"
                                                         ctx.fillStyle = 'rgba(212,175,55,0.85)';
-                                                        ctx.font = 'italic 18px Georgia, serif';
+                                                        ctx.font = 'italic 36px Georgia, serif';
                                                         ctx.letterSpacing = '2px';
-                                                        ctx.fillText('Certificate of Achievement', W / 2, 180);
+                                                        ctx.fillText('Certificate of Achievement', W / 2, 190);
 
                                                         // "This is to certify that"
                                                         ctx.fillStyle = 'rgba(148,163,184,0.9)';
-                                                        ctx.font = '15px sans-serif';
+                                                        ctx.font = '24px sans-serif';
                                                         ctx.letterSpacing = '0px';
-                                                        ctx.fillText('This is to certify that', W / 2, 220);
+                                                        ctx.fillText('This is to certify that', W / 2, 240);
 
                                                         // Student name
                                                         const studentName = (user?.fullName || user?.full_name || user?.email || 'Student').toUpperCase();
                                                         ctx.fillStyle = '#ffffff';
-                                                        ctx.font = 'bold 54px Georgia, serif';
-                                                        ctx.fillText(studentName, W / 2, 300);
+                                                        ctx.font = 'bold 72px Georgia, serif';
+                                                        ctx.fillText(studentName, W / 2, 330);
 
                                                         // Name underline
                                                         const nameW = ctx.measureText(studentName).width;
                                                         ctx.strokeStyle = '#d4af37';
-                                                        ctx.lineWidth = 2;
+                                                        ctx.lineWidth = 3;
                                                         ctx.beginPath();
-                                                        ctx.moveTo(W / 2 - nameW / 2, 312);
-                                                        ctx.lineTo(W / 2 + nameW / 2, 312);
+                                                        ctx.moveTo(W / 2 - nameW / 2 - 20, 345);
+                                                        ctx.lineTo(W / 2 + nameW / 2 + 20, 345);
                                                         ctx.stroke();
 
                                                         // "has successfully earned the achievement"
                                                         ctx.fillStyle = 'rgba(148,163,184,0.9)';
-                                                        ctx.font = '15px sans-serif';
-                                                        ctx.fillText('has successfully earned the achievement', W / 2, 355);
+                                                        ctx.font = '24px sans-serif';
+                                                        ctx.fillText('has successfully earned the achievement:', W / 2, 400);
 
                                                         // Badge name (gold, large)
                                                         ctx.fillStyle = '#fbbf24';
-                                                        ctx.font = 'bold 38px Georgia, serif';
-                                                        ctx.fillText(`"${badge.name}"`, W / 2, 410);
+                                                        ctx.font = 'bold 54px Georgia, serif';
+                                                        ctx.fillText(`"${badge.name}"`, W / 2, 470);
 
                                                         // Badge description
-                                                        ctx.fillStyle = 'rgba(148,163,184,0.85)';
-                                                        ctx.font = '14px sans-serif';
+                                                        ctx.fillStyle = 'rgba(203,213,225,0.95)';
+                                                        ctx.font = '22px sans-serif';
                                                         // Wrap text
                                                         const words = badge.description.split(' ');
                                                         let line = ''; const lines: string[] = [];
                                                         for (const word of words) {
                                                             const test = line + word + ' ';
-                                                            if (ctx.measureText(test).width > 600) { lines.push(line.trim()); line = word + ' '; }
+                                                            if (ctx.measureText(test).width > 700) { lines.push(line.trim()); line = word + ' '; }
                                                             else line = test;
                                                         }
                                                         if (line) lines.push(line.trim());
-                                                        lines.forEach((l, i) => ctx.fillText(l, W / 2, 445 + i * 22));
+                                                        lines.forEach((l, i) => ctx.fillText(l, W / 2, 530 + i * 35));
 
                                                         // Bottom divider
                                                         ctx.strokeStyle = grad2;
@@ -218,17 +218,17 @@ const BadgesPage: React.FC = () => {
 
                                                         // Date
                                                         const dateStr = new Date().toLocaleDateString('en-PH', { year: 'numeric', month: 'long', day: 'numeric' });
-                                                        ctx.fillStyle = 'rgba(100,116,139,0.8)';
-                                                        ctx.font = '13px sans-serif';
+                                                        ctx.fillStyle = 'rgba(148,163,184,0.9)';
+                                                        ctx.font = '18px sans-serif';
                                                         ctx.fillText(`Awarded on ${dateStr}`, W / 2, H - 110);
 
                                                         // SmartCash seal (emerald circle)
                                                         ctx.fillStyle = '#10b981';
-                                                        ctx.beginPath(); ctx.arc(W / 2, H - 65, 24, 0, Math.PI * 2); ctx.fill();
+                                                        ctx.beginPath(); ctx.arc(W / 2, H - 65, 30, 0, Math.PI * 2); ctx.fill();
                                                         ctx.fillStyle = '#ffffff';
-                                                        ctx.font = 'bold 10px sans-serif';
+                                                        ctx.font = 'bold 12px sans-serif';
                                                         ctx.letterSpacing = '1px';
-                                                        ctx.fillText('VERIFIED', W / 2, H - 60);
+                                                        ctx.fillText('VERIFIED', W / 2, H - 61);
 
                                                         // Download
                                                         const a = document.createElement('a');
@@ -294,7 +294,7 @@ const BadgesPage: React.FC = () => {
                                 <h3 className="text-sm font-bold font-display text-white tracking-tight">Class Leaderboard</h3>
                             </div>
 
-                            <div className="flex-1 overflow-y-auto pr-1 space-y-1.5 relative z-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
+                            <div className="flex-1 overflow-y-auto max-h-[400px] pr-1 space-y-1.5 relative z-10 scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
                                 {leaderboard.map((student) => (
                                     <div key={student.rank} className={`flex items-center gap-2 px-2 py-2 rounded-lg transition-all duration-300 border ${student.isMe ? 'bg-gradient-to-r from-emerald-900/40 to-teal-900/40 border-emerald-500/30' : 'bg-slate-800/40 border-slate-700/50'}`}>
 

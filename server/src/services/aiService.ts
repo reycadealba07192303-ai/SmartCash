@@ -143,3 +143,74 @@ Return ONLY valid JSON. No markdown.`;
     return lessons;
 };
 
+export interface ReceiptVerificationResult {
+    isValid: boolean;
+    amount?: number;
+    referenceNumber?: string;
+    senderNumber?: string;
+}
+
+/**
+ * Visually analyzes a base64 image using Gemini multimodal to determine if it is a valid receipt
+ * and extracts data from it.
+ */
+export const verifyReceiptImage = async (base64Image: string): Promise<ReceiptVerificationResult> => {
+    if (!apiKey) throw new Error('GEMINI_API_KEY is missing');
+
+    const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
+    
+    // Extract base64 and mimetype
+    const parts = base64Image.split(',');
+    let data = base64Image;
+    let mimeType = 'image/png';
+
+    if (parts.length === 2) {
+        data = parts[1];
+        const match = parts[0].match(/:(.*?);/);
+        if (match) mimeType = match[1];
+    }
+
+    const prompt = `Look at the attached image. Is this a valid payment receipt, transaction screenshot, or proof of payment (like a GCash/Maya transaction slip, bank transfer confirmation)?
+If it is a receipt, carefully extract the following details from the image:
+- "amount": the amount paid as a number (e.g., 49.00)
+- "referenceNumber": the transaction reference number (or Ref No.)
+- "senderNumber": the mobile number or account number of the sender who made the payment.
+
+Return your response ONLY as a valid JSON object matching this structure:
+{
+  "isValid": boolean (true if it's a receipt, false if it's entirely unrelated like a selfie or dog),
+  "amount": number or null (if not found),
+  "referenceNumber": string or null (if not found),
+  "senderNumber": string or null (if not found)
+}
+No extra characters, no markdown formatting.`;
+
+    try {
+        const result = await model.generateContent([
+            prompt,
+            {
+                inlineData: {
+                    data: data,
+                    mimeType: mimeType
+                }
+            }
+        ]);
+        
+        let text = result.response.text();
+        text = text.replace(/```json/gi, '').replace(/```/g, '').trim();
+
+        // Parse JSON
+        const parsed = JSON.parse(text);
+        return {
+            isValid: parsed.isValid === true,
+            amount: typeof parsed.amount === 'number' ? parsed.amount : undefined,
+            referenceNumber: typeof parsed.referenceNumber === 'string' ? parsed.referenceNumber : undefined,
+            senderNumber: typeof parsed.senderNumber === 'string' ? parsed.senderNumber : undefined
+        };
+
+    } catch (error) {
+        console.error("AI Receipt Verification Error:", error);
+        // Fail-safe
+        return { isValid: true };
+    }
+};

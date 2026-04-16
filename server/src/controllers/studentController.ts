@@ -1,4 +1,4 @@
-﻿import { Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { AuthRequest } from '../middleware/authMiddleware';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import User from '../models/User';
@@ -21,7 +21,7 @@ export const getStudentStats = async (req: AuthRequest, res: Response) => {
     try {
         const userId = req.user?.id;
 
-        const profile = await User.findById(userId).select('full_name');
+        const profile = await User.findById(userId).select('full_name isPremium');
 
         const lessonsCompleted = await UserLessonProgress.countDocuments({ user_id: userId, completed: true });
         const totalLessons = await Lesson.countDocuments({});
@@ -67,6 +67,7 @@ export const getStudentStats = async (req: AuthRequest, res: Response) => {
 
         res.json({
             fullName: profile?.full_name || 'Student',
+            isPremium: profile?.isPremium || false,
             lessonsCompleted: `${lessonsCompleted}/${totalLessons}`,
             currentStreak: '1 Day',
             totalSavings: `₱${totalSavings.toLocaleString()}`,

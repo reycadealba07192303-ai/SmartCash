@@ -1,6 +1,6 @@
 import React, { ReactNode, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Leaf, LayoutDashboard, BookOpen, Users, PieChart, LogOut, Settings, Award, MessageSquare, User, Download, Layers, Menu, X } from 'lucide-react';
+import { Leaf, LayoutDashboard, BookOpen, Users, PieChart, LogOut, Settings, Award, MessageSquare, User, Download, Layers, Menu, X, Wallet } from 'lucide-react';
 import ThemeToggle from '../../components/ThemeToggle';
 
 interface DashboardLayoutProps {
@@ -46,6 +46,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
         return [
           { icon: LayoutDashboard, label: 'System Overview', path: '/dashboard/admin' },
           { icon: Users, label: 'User Management', path: '/dashboard/admin/users' },
+          { icon: Wallet, label: 'Pending Payments', path: '/dashboard/admin/payments' },
           { icon: User, label: 'Profile', path: '/dashboard/admin/settings' },
         ];
       default:
