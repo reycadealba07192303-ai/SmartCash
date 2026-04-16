@@ -12,7 +12,6 @@ const CheckoutPage: React.FC = () => {
   const isYearly = billing === 'yearly';
   const price = isYearly ? 490 : 49;
   
-  const [method, setMethod] = useState<'gcash' | 'maya'>('gcash');
   const [phone, setPhone] = useState('');
   const [status, setStatus] = useState<'idle' | 'processing' | 'success'>('idle');
   const { token, user, updateUser } = useAuth();
@@ -25,12 +24,7 @@ const CheckoutPage: React.FC = () => {
     
     // Redirect to the standalone mock WebPay Gateway
     setTimeout(() => {
-        if (method === 'gcash') {
-            navigate(`/gateway/gcash?amount=${price}&phone=${phone}`);
-        } else {
-            // For maya, we just simulate inline success since we didn't build a maya portal
-            setStatus('success');
-        }
+        navigate(`/gateway/gcash?amount=${price}&phone=${phone}`);
     }, 1200);
   };
 
@@ -43,7 +37,7 @@ const CheckoutPage: React.FC = () => {
           </div>
           <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">Payment Successful!</h2>
           <p className="text-slate-500 dark:text-slate-400 mb-8 mt-4 leading-relaxed">
-            Welcome to SmartCash Premium! Your mocked payment of ₱{price} via {method === 'gcash' ? 'GCash' : 'Maya'} was successful. You now have full access.
+            Welcome to SmartCash Premium! Your mocked payment of ₱{price} via GCash was successful. You now have full access.
           </p>
           <button 
             onClick={() => navigate('/dashboard/student')}
@@ -88,45 +82,20 @@ const CheckoutPage: React.FC = () => {
               {/* Payment Methods */}
               <div className="mb-8">
                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-4 uppercase tracking-wider">
-                  Select Method
+                  Payment Method
                 </label>
-                <div className="grid grid-cols-2 gap-4">
-                  <button
-                    type="button"
-                    onClick={() => setMethod('gcash')}
-                    className={`flex flex-col items-center justify-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                      method === 'gcash' 
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/10' 
-                        : 'border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-700 bg-slate-50 dark:bg-slate-800/50'
-                    }`}
-                  >
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${method === 'gcash' ? 'bg-blue-500 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-400'}`}>
-                      <Wallet size={24} />
-                    </div>
-                    <span className={`font-bold ${method === 'gcash' ? 'text-blue-600 dark:text-blue-400' : 'text-slate-500 dark:text-slate-400'}`}>GCash</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setMethod('maya')}
-                    className={`flex flex-col items-center justify-center gap-3 p-4 rounded-2xl border-2 transition-all ${
-                      method === 'maya' 
-                        ? 'border-emerald-500 bg-emerald-50 dark:bg-emerald-900/10' 
-                        : 'border-slate-200 dark:border-slate-700 hover:border-emerald-300 dark:hover:border-emerald-700 bg-slate-50 dark:bg-slate-800/50'
-                    }`}
-                  >
-                    <div className={`w-12 h-12 rounded-full flex items-center justify-center ${method === 'maya' ? 'bg-emerald-500 text-white' : 'bg-slate-200 dark:bg-slate-700 text-slate-400'}`}>
-                      <Wallet size={24} />
-                    </div>
-                    <span className={`font-bold ${method === 'maya' ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-500 dark:text-slate-400'}`}>Maya</span>
-                  </button>
+                <div className="flex flex-col items-center justify-center gap-3 p-4 rounded-2xl border-2 transition-all border-blue-500 bg-blue-50 dark:bg-blue-900/10">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center bg-blue-500 text-white">
+                    <Wallet size={24} />
+                  </div>
+                  <span className="font-bold text-blue-600 dark:text-blue-400">GCash</span>
                 </div>
               </div>
 
               {/* Account Input */}
               <div className="mb-10">
                 <label className="block text-sm font-bold text-slate-700 dark:text-slate-300 mb-2 uppercase tracking-wider">
-                  {method === 'gcash' ? 'GCash' : 'Maya'} Mobile Number
+                  GCash Mobile Number
                 </label>
                 <div className="relative">
                   <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-medium">+63</span>
