@@ -62,6 +62,17 @@ export const getPendingPayments = async (req: AuthRequest, res: Response) => {
     }
 };
 
+export const getMyPayments = async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = req.user._id || req.user.id;
+        const payments = await Payment.find({ user: userId })
+             .sort({ createdAt: -1 });
+        res.json(payments);
+    } catch (error) {
+        res.status(500).json({ error: 'Server error fetching your payments.' });
+    }
+};
+
 export const approvePayment = async (req: AuthRequest, res: Response) => {
     try {
         const { id } = req.params;

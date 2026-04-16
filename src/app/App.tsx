@@ -31,6 +31,7 @@ import BlogPage from './pages/BlogPage';
 import TemplatesPage from './pages/TemplatesPage';
 import StudentModulesPage from './pages/StudentModulesPage';
 import CheckoutPage from './pages/CheckoutPage';
+import StudentPaymentsPage from './pages/student/StudentPaymentsPage';
 
 import FacultyStudentsPage from './pages/faculty/FacultyStudentsPage';
 import FacultyContentPage from './pages/faculty/FacultyContentPage';
@@ -95,6 +96,7 @@ function App() {
               <Route path="/dashboard/student/forum" element={<ForumPage />} />
               <Route path="/dashboard/student/blog" element={<BlogPage role="student" />} />
               <Route path="/dashboard/student/templates" element={<TemplatesPage role="student" />} />
+              <Route path="/dashboard/student/payments" element={<StudentPaymentsPage />} />
               <Route path="/dashboard/student/profile" element={<UserProfilePage role="student" />} />
             </Route>
 

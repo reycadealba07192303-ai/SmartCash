@@ -30,6 +30,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role }) => 
           { icon: MessageSquare, label: 'Forum', path: '/dashboard/student/forum' },
           { icon: BookOpen, label: 'Blog', path: '/dashboard/student/blog' },
           { icon: Download, label: 'Templates', path: '/dashboard/student/templates' },
+          { icon: Wallet, label: 'Payment History', path: '/dashboard/student/payments' },
           { icon: User, label: 'Account Info', path: '/dashboard/student/profile' },
         ];
       case 'teacher':
