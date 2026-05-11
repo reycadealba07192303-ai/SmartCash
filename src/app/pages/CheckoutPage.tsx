@@ -10,7 +10,7 @@ const CheckoutPage: React.FC = () => {
   const billing = searchParams.get('billing') || 'monthly';
   
   const isYearly = billing === 'yearly';
-  const price = isYearly ? 490 : 49;
+  const price = isYearly ? 910 : 91;
   
   const [phone, setPhone] = useState('');
   const [status, setStatus] = useState<'idle' | 'processing' | 'success'>('idle');

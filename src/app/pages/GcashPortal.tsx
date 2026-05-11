@@ -6,7 +6,7 @@ import { Upload, Lock, ShieldCheck, Loader2, Timer, CheckCircle, AlertTriangle }
 const GcashPortal: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const amountParam = searchParams.get('amount') || '49';
+  const amountParam = searchParams.get('amount') || '91';
   const phoneParam = searchParams.get('phone') || '';
   const amount = parseFloat(amountParam).toFixed(2);
   const { token, user, updateUser } = useAuth();

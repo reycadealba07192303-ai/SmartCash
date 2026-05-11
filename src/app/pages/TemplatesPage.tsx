@@ -410,7 +410,7 @@ const TemplatesPage: React.FC<TemplatesPageProps> = ({ role = 'student' }) => {
                         <div className="p-6">
                             <div className="flex justify-between items-center p-4 bg-slate-50 dark:bg-slate-800 rounded-xl mb-6 border border-slate-100 dark:border-slate-700">
                                 <span className="font-semibold text-slate-700 dark:text-slate-300">Premium Plan (1 Month)</span>
-                                <span className="font-bold text-xl text-slate-900 dark:text-white">₱49.00</span>
+                                <span className="font-bold text-xl text-slate-900 dark:text-white">₱91.00</span>
                             </div>
 
                             <a href="/checkout" className="w-full inline-flex font-bold items-center justify-center py-4 bg-emerald-500 hover:bg-emerald-600 rounded-xl text-white transition-colors gap-2">

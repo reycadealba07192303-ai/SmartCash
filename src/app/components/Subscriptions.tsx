@@ -64,7 +64,7 @@ const Subscriptions = () => {
           <div className="h-px bg-slate-100 dark:bg-slate-800 w-full mb-6"></div>
           <div className="text-4xl font-bold text-slate-900 dark:text-white mb-2 flex items-start">
             <span className="text-xl mt-1 mr-1 text-slate-500 dark:text-slate-400 font-medium">₱</span>
-            {isYearly ? "490" : "49"}
+            {isYearly ? "910" : "91"}
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 mb-8 font-medium">per {isYearly ? 'year' : 'month'}</p>
 
