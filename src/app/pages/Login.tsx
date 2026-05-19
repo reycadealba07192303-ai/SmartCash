@@ -90,11 +90,8 @@ const Login: React.FC = () => {
             transition={{ duration: 0.5 }}
             className="max-w-md mx-auto w-full"
           >
-            <div className="flex items-center gap-2 mb-8 md:hidden">
-              <Leaf className="h-8 w-8 text-emerald-500" />
-              <span className="font-bold text-2xl tracking-tight text-slate-900 dark:text-white">
-                Smart<span className="text-emerald-500">Cash</span>
-              </span>
+            <div className="flex items-center justify-center mb-8 md:hidden">
+              <img src="/logo.png" alt="SmartCash Logo" className="h-16 w-auto" />
             </div>
 
             <div className="text-center mb-8">
@@ -221,9 +218,9 @@ const Login: React.FC = () => {
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ delay: 0.4 }}
-            className="bg-white/10 backdrop-blur-md p-6 rounded-3xl mb-8 shadow-2xl shadow-emerald-900/30 transform hover:scale-105 transition-transform duration-500 border border-white/5"
+            className="bg-white/10 backdrop-blur-md p-6 rounded-3xl mb-8 shadow-2xl shadow-emerald-900/30 transform hover:scale-105 transition-transform duration-500 border border-white/5 flex items-center justify-center w-40 h-40"
           >
-            <Leaf size={80} className="text-white drop-shadow-lg" />
+            <img src="/logo.png" alt="SmartCash Logo" className="w-full h-auto drop-shadow-lg" />
           </motion.div>
 
           <motion.h2

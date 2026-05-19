@@ -62,10 +62,7 @@ const Navbar: React.FC = () => {
       >
         <div className="flex justify-between items-center">
           <a href="#" className="flex items-center gap-2 group">
-            <Leaf className="h-8 w-8 text-emerald-500 group-hover:scale-110 transition-transform" />
-            <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">
-              Smart<span className="text-emerald-500">Cash</span>
-            </span>
+            <img src="/logo.png" alt="SmartCash Logo" className="h-10 md:h-12 w-auto group-hover:scale-105 transition-transform dark:brightness-110" />
           </a>
 
           {/* Desktop Menu */}

@@ -9,10 +9,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-16">
           <div className="md:col-span-2">
             <a href="#" className="flex items-center gap-2 mb-6">
-              <Leaf className="h-8 w-8 text-emerald-500" />
-              <span className="font-bold text-xl tracking-tight text-slate-900 dark:text-white">
-                Smart<span className="text-emerald-500">Cash</span>
-              </span>
+              <img src="/logo.png" alt="SmartCash Logo" className="h-10 w-auto dark:brightness-110" />
             </a>
             <p className="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm">
               Empowering the next generation of entrepreneurs at STI College Malolos through interactive financial literacy modules, real-time budget tracking, and AI-driven insights.
