@@ -172,7 +172,7 @@ export const verifyReceiptImage = async (base64Image: string): Promise<ReceiptVe
 
     const prompt = `Look at the attached image. Is this a valid payment receipt, transaction screenshot, or proof of payment (like a GCash/Maya transaction slip, bank transfer confirmation)?
 If it is a receipt, carefully extract the following details from the image:
-- "amount": the amount paid as a number (e.g., 91.00)
+- "amount": the amount paid as a number (e.g., 90.00)
 - "referenceNumber": the transaction reference number (or Ref No.)
 - "senderNumber": the mobile number or account number of the sender who made the payment.
 
